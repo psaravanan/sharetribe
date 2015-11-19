@@ -19,4 +19,18 @@ $(function() {
 
   relocate(768, $("#header-menu-mobile-anchor"), $("#header-menu-desktop-anchor").get(0));
   relocate(768, $("#header-user-mobile-anchor"), $("#header-user-desktop-anchor").get(0));
+  	$('.bxslider').bxSlider({
+	    mode: 'horizontal',
+		infiniteLoop: true,
+		auto: true,
+		autoStart: true,
+		autoDirection: 'next',
+		autoHover: true,
+		pause: 3000,
+		autoControls: false,
+		pager: true,
+		pagerType: 'full',
+		controls: true,
+		speed: 200
+	});
 });

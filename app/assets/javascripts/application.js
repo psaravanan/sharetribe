@@ -12,6 +12,7 @@
 //= require jquery.pageless
 //= require jquery.autosize-min
 //= require jquery.lightbox_me
+//= require jquery.bxslider
 //= require jquery.transit.min
 //= require jquery.placeholder
 //= require jquery.ui.widget

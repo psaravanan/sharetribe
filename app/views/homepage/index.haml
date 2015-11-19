@@ -25,6 +25,33 @@
       - else
         = render :partial => "search_bar"
 
+.container
+  %ul.bxslider
+    %li
+      %a{:href => "#"}
+        %img{:src => "/assets/images/1.jpg", :title => ""}/
+    %li
+      %a{:href => "#"}
+        %img{:src => "/assets/images/2.jpg", :title => ""}/
+    %li
+      %a{:href => "#"}
+        %img{:src => "/assets/images/3.jpg", :title => ""}/
+    %li
+      %a{:href => "#"}
+        %img{:src => "/assets/images/4.jpg", :title => ""}/
+    %li
+      %a{:href => "#"}
+        %img{:src => "/assets/images/5.jpg", :title => ""}/
+    %li
+      %a{:href => "#"}
+        %img{:src => "/assets/images/6.jpg", :title => ""}/
+    %li
+      %a{:href => "#"}
+        %img{:src => "/assets/images/7.jpg", :title => ""}/
+    %li
+      %a{:href => "#"}
+        %img{:src => "/assets/images/8.jpg", :title => ""}/                  
+			
 - if @current_community.private? && show_big_cover_photo?
   - if @community_customization && @community_customization.private_community_homepage_content
     .community-customization-wrapper
