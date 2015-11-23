@@ -28,7 +28,7 @@ $(function() {
 		autoHover: true,
 		pause: 3000,
 		autoControls: false,
-		pager: true,
+		pager: false,
 		pagerType: 'full',
 		controls: true,
 		speed: 200
