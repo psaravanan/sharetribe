@@ -9,7 +9,11 @@ end
 
 session_key = APP_CONFIG.session_key || '_kassi_session'
 
-Rails.application.config.session_store :active_record_store, :key => session_key, :domain => domain, :expire_after => 1.years
+# Rails.application.config.session_store :active_record_store, :key => session_key, :domain => domain, :expire_after => 1.years
+
+
+
+Rails.application.config.session_store :cookie_store, key: session_key
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information

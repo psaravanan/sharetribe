@@ -1,0 +1,14 @@
+= form_for [:admin, @sliderimage] do |form|
+  .row
+    .col-12
+      = form.label :Image
+      = form.file_field(:avatar, :class => "file_field")
+      = form.label :image_url
+      = form.text_field :image_url
+    -if @sliderimage.avatar.present? 
+      %a{:href => "#{@sliderimage.image_url}"}
+        %img{:src => @sliderimage.avatar,:style=>"width:50%;"}
+  .row
+    .col-12
+      = form.button 
+      

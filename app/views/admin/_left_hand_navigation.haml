@@ -33,6 +33,9 @@
       %a{:id => link[:id], :href => link[:path], :title => link[:text], :class => (link[:name].eql?(sel_link) ? "selected left-navi-link" : "left-navi-link")}
         .left-navi-link-icon{:class => link[:icon_class]}
         .left-navi-link-text= link[:text]
+    %a{:href=>admin_slider_images_path, :class=>"left-navi-link"}
+      .left-navi-link-icon{:class => "icon-circle-blank left-navi-link-icon"}
+      .left-navi-link-text= 'Add slider image'
 
 
 - links.each do |link|
@@ -47,3 +50,4 @@
     %a{:href => link[:path], :title => link[:text], :id => "#{link[:name]}_left_navi_link"}
       .icon-with-text{:class => link[:icon_class]}
       .text-with-icon= link[:text]
+

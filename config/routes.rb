@@ -199,6 +199,7 @@ Kassi::Application.routes.draw do
         end
       end
       resource :plan, only: [:show]
+      resources :slider_images
     end
 
     resources :invitations

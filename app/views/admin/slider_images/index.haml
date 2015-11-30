@@ -1,0 +1,18 @@
+= render :partial => "admin/left_hand_navigation", :locals => { :links => admin_links_for(@current_community) }
+.left-navi-section
+  = link_to 'New Image', new_admin_slider_image_path 
+  %table
+    %tr
+      %th Image 
+      %th{:colspan=>3} Action
+    - @sliderimage.each do |image|
+      %tr
+        %td
+          %a{:href => "#{image.image_url}"}
+            %img{:src => image.avatar,:style=>"width:10%;"}
+        %td= link_to 'Show', admin_slider_image_path(image)
+        %td= link_to 'Edit', edit_admin_slider_image_path(image)
+        %td=  link_to 'Destroy', admin_slider_image_path(image), method: :delete, data: { confirm: 'Are you sure?' }
+
+
+        
