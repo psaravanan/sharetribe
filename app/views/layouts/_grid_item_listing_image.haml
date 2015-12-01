@@ -7,6 +7,7 @@
   - Listing price
   - Adds `modifier_class` which can be used for view specific fine tunings
 
+
 = link_to(listing_path(listing.url), :class => "#{modifier_class} fluid-thumbnail-grid-image-item-link") do
   .fluid-thumbnail-grid-image-image-container{:class => "#{modifier_class}"}
     - with_first_listing_image(listing) do |first_image_url|
@@ -28,3 +29,18 @@
       - else
         %span.fluid-thumbnail-grid-image-type{:class => "#{modifier_class}"}
           = shape_name(listing)
+
+    .fluid-thumbnail-grid-image-price-container2
+      %span
+        -if current_person.present? 
+          %a{:href => "#{favorites_like_person_listing_path(current_person.id,listing.id)}", :target => ""} 
+            / %span.icon-heart-empty.fa-2x
+            %span.fa.fa-heart.fa-3x
+
+
+
+/ :javascript
+/   $("a.button").one("click", function() {
+/     $(this).click(function () { return false; });
+/ });
+/   });

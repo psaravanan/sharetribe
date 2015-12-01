@@ -45,6 +45,8 @@ class ListingImagesController < ApplicationController
       render json: ListingImageJSAdapter.new(listing_image).to_json, status: 200
     end
   end
+  
+
 
   private
 
@@ -100,4 +102,7 @@ class ListingImagesController < ApplicationController
       listing.author == @current_user
     end
   end
+
+
+
 end

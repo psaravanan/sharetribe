@@ -14,3 +14,22 @@
 //= require_tree ./views
 
 //= require jquery.bxslider
+
+.fluid-thumbnail-grid-image-price-container2{
+    color: #3c3c3c;
+    font-weight: 600;
+    min-width: 3.125em;
+    text-align: center;
+    position: absolute;
+    top: 34px;
+    right: 0;
+    padding: 0.3em 0.75em;
+    -moz-border-radius-bottomleft: 0.375em;
+    -webkit-border-bottom-left-radius: 0.375em;
+    border-bottom-left-radius: 0.375em;
+    font-size: 12px;
+    max-width: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }

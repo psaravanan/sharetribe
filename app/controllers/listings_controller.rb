@@ -433,6 +433,17 @@ class ListingsController < ApplicationController
 
   end
 
+  def favorites_like
+    if @favorite = Favorite.find_by_person_id_and_listing_image_id(params[:person_id],params[:id])
+      @favorite.destroy
+      redirect_to homepage_index_path
+    else
+    @favorite = Favorite.new(:person_id => params[:person_id],:listing_image_id =>params[:id])
+    @favorite.save
+    redirect_to homepage_index_path
+    end 
+  end
+
   private
 
   def select_shape(shapes, id)

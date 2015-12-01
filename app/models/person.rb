@@ -113,6 +113,10 @@ class Person < ActiveRecord::Base
 
   has_and_belongs_to_many :followed_listings, :class_name => "Listing", :join_table => "listing_followers"
 
+  has_many :favorites
+  has_many :listing, through: :favorites
+
+
   def to_param
     username
   end

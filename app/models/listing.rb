@@ -70,6 +70,9 @@ class Listing < ActiveRecord::Base
 
   has_many :listing_images, :dependent => :destroy
 
+  has_many :favorites
+  has_many :persons, through: :favorites
+
   has_many :conversations
   has_many :comments, :dependent => :destroy
   has_many :custom_field_values, :dependent => :destroy

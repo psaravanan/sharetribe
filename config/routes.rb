@@ -34,7 +34,7 @@ Kassi::Application.routes.draw do
   match "/people/:person_id/inbox/:id", :to => redirect("/fi/people/%{person_id}/messages/%{id}")
   match "/listings/new/:type" => "listings#new", :as => :new_request_without_locale # needed for some emails, where locale part is already set
   match "/change_locale" => "i18n#change_locale", :as => :change_locale
-
+  
 
   # Prettier link for admin panel
   namespace :admin do
@@ -311,6 +311,8 @@ Kassi::Application.routes.draw do
             put :close
             put :move_to_top
             put :show_in_updates_email
+            get :favorites_like
+
           end
         end
         resources :person_messages
@@ -400,3 +402,6 @@ Kassi::Application.routes.draw do
   #catches all non matched routes, shows 404 and logs more reasonably than the alternative RoutingError + stacktrace
   match "*path" => "errors#not_found"
 end
+
+
+
