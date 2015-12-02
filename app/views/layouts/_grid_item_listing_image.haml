@@ -34,8 +34,10 @@
       %span
         -if current_person.present? 
           %a{:href => "#{favorites_like_person_listing_path(current_person.id,listing.id)}", :target => ""} 
-            / %span.icon-heart-empty.fa-2x
-            %span.fa.fa-heart.fa-3x
+        -if Favorite.find_by_person_id_and_listing_image_id(current_person.id,listing.id).present?
+          %span.fa.fa-heart.fa-3x
+        -else
+          %span.icon-heart-empty.fa-3x
 
 
 
