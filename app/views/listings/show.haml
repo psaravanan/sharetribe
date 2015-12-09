@@ -24,6 +24,14 @@
     #listing-image-link.listing-image-frame-content
       .listing-image-vertical-centering{:class => "${aspectRatioClass}" }
         %img{:src => "${url}", :alt => @listing.title, :class => "listing-image ${aspectRatioClass}"}
+          .fluid-thumbnail-grid-image-price-container2
+            %span
+              -if current_person.present? 
+                %a{:href => "#{favorites_like_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""} 
+                  -if Favorite.find_by_person_id_and_listing_image_id(current_person.id,@listing.id).present?
+                    %span.fa.fa-heart.fa-3x
+                  -else
+                    %span.icon-heart-empty.fa-3x
 
 %script{type: "text/template", class: "template", id: "image-thumbnail-template"}
   .listing-image-thumbnail-container
@@ -48,6 +56,15 @@
                   .listing-image-navi-arrow-container
                     .listing-image-arrow-icon-container.right
                       = icon_tag("directright", ["navigate-icon-fix", "listing-image-navi-arrow"])
+                .fluid-thumbnail-grid-image-price-container2
+                  %span
+                    -if current_person.present? 
+                      %a{:href => "#{favorites_like_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""} 
+                        -if Favorite.find_by_person_id_and_listing_image_id(current_person.id,@listing.id).present?
+                          %span.fa.fa-heart.fa-3x
+                        -else
+                          %span.icon-heart-empty.fa-3x
+
             #thumbnail-stripe.listing-image-thumbnail-stripe
 
             - content_for :extra_javascript do
@@ -65,6 +82,8 @@
                         = t("listings.show.processing_uploaded_image")
                       - else
                         = t(".no_description")
+        
+        
 
     .row
       .col-12
@@ -125,11 +144,16 @@
             - with_quantity_and_vat_text(@current_community, @listing) do |text|
               %span.listing-price-quantity
                 = text
-
+    - is_author = current_user?(@listing.author)
+    - is_marketplace_admin = Maybe(@current_user).has_admin_rights_in?(@current_community).or_else(false)
+    - is_authorized = is_author || is_marketplace_admin
     .row-with-divider
+      - if !is_author
+        = select_tag :lead_value,options_for_select((Listing::Listing_value)) if current_person.present?  
       .col-12
-        #listing-message-links
+        #listing-message-links{:style => "display :none;"}
           = render :partial => "listing_actions", locals: { form_path: form_path, payment_gateway: payment_gateway, delivery_opts: delivery_opts, process: process, listing_unit_type: listing_unit_type, country_code: country_code }
+
 
     .row-with-divider
       .col-12
@@ -166,3 +190,6 @@
           #googlemap
             = render :partial => "googlemap", :locals => { :listing => @listing}
             = render :partial => "origin", :locals => { :origin_loc => @listing.origin_loc }
+
+
+

@@ -110,6 +110,7 @@ class ListingsController < ApplicationController
     end
   end
 
+
   def listing_bubble
     if params[:id]
       @listing = Listing.find(params[:id])
@@ -434,13 +435,22 @@ class ListingsController < ApplicationController
   end
 
   def favorites_like
+    @listing = Listing.find(params[:id])
     if @favorite = Favorite.find_by_person_id_and_listing_image_id(params[:person_id],params[:id])
       @favorite.destroy
-      redirect_to homepage_index_path
+      if params[:data] == "show"
+        redirect_to listing_path(@listing)
+      else
+        redirect_to homepage_index_path
+      end
     else
-    @favorite = Favorite.new(:person_id => params[:person_id],:listing_image_id =>params[:id])
-    @favorite.save
-    redirect_to homepage_index_path
+      @favorite = Favorite.new(:person_id => params[:person_id],:listing_image_id =>params[:id])
+      @favorite.save
+      if params[:data] == "show"
+        redirect_to listing_path(@listing)
+      else
+        redirect_to homepage_index_path
+      end
     end 
   end
 

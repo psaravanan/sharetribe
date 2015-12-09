@@ -114,6 +114,11 @@ class Listing < ActiveRecord::Base
     self.updates_email_at ||= Time.now
   end
 
+  Listing_value = [
+          "Hours",
+          "Date"
+          ]
+
   before_validation do
     # Normalize browser line-breaks.
     # Reason: Some browsers send line-break as \r\n which counts for 2 characters making the
