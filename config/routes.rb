@@ -312,6 +312,7 @@ Kassi::Application.routes.draw do
             put :move_to_top
             put :show_in_updates_email
             get :favorites_like
+            get :wish_list
 
           end
         end

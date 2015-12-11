@@ -454,6 +454,26 @@ class ListingsController < ApplicationController
     end 
   end
 
+  def wish_list
+    @listing = Listing.find(params[:id])
+    if @wishlist = Wishlist.find_by_person_id_and_listing_id(params[:person_id],params[:id])
+      @wishlist.destroy
+      if params[:data] == "show"
+        redirect_to listing_path(@listing)
+      else
+        redirect_to homepage_index_path
+      end
+    else
+      @wishlist = Wishlist.new(:person_id => params[:person_id],:listing_id =>params[:id])
+      @wishlist.save
+      if params[:data] == "show"
+        redirect_to listing_path(@listing)
+      else
+        redirect_to homepage_index_path
+      end
+    end 
+  end
+
   private
 
   def select_shape(shapes, id)

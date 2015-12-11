@@ -116,6 +116,9 @@ class Person < ActiveRecord::Base
   has_many :favorites
   has_many :listing, through: :favorites
 
+  has_many :wishlist
+  has_many :listing, through: :wishlist
+
 
   def to_param
     username

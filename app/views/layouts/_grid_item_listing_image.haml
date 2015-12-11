@@ -39,6 +39,15 @@
             -else
               %span.icon-heart-empty.fa-3x
 
+    
+      %span
+        -if current_person.present? 
+          %a{:href => "#{wish_list_person_listing_path(current_person.id,listing.id)}", :target => ""} 
+            -if Wishlist.find_by_person_id_and_listing_id(current_person.id,listing.id).present?
+              %span.fa.fa-flag.fa-3x
+            -else
+              %span.fa.fa-flag-o.fa-3x
+
 
 
 / :javascript

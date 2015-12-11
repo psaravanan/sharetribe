@@ -73,6 +73,9 @@ class Listing < ActiveRecord::Base
   has_many :favorites
   has_many :persons, through: :favorites
 
+  has_many :wishlist
+  has_many :persons, through: :wishlist
+
   has_many :conversations
   has_many :comments, :dependent => :destroy
   has_many :custom_field_values, :dependent => :destroy
