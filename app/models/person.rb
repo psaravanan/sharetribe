@@ -116,8 +116,8 @@ class Person < ActiveRecord::Base
   has_many :favorites
   has_many :listing, through: :favorites
 
-  has_many :wishlist
-  has_many :listing, through: :wishlist
+  has_many :wishlists
+  has_many :listings, through: :wishlists
 
 
   def to_param

@@ -1,0 +1,165 @@
+= render :partial => 'layouts/head'
+
+%body
+
+  %noscript
+    .noscript-padding
+      -# Noscript content will be positioned here
+  = stylesheet_link_tag "application1"
+  = stylesheet_link_tag "bootstrap.min"
+  =# stylesheet_link_tag "application"
+  = render :partial => 'layouts/global-header'
+
+  - if display_expiration_notice?
+    = render partial: "layouts/expiration_notice",
+        :locals => {external_plan_service_login_url: admin_plan_path}
+
+  - content_for(:page_content) do
+    %section.marketplace-lander
+      =# yield :title_header
+      / - with_big_cover_photo do
+      /   .coverimage
+      /     %figure.marketplace-cover.fluidratio
+      /   .wrapper
+      /     .lander-content-container
+      /       .lander-content.marketplace-lander-content
+      /         = yield :title_header
+      - with_small_cover_photo do
+        .coverimage
+          %figure.marketplace-cover-small.fluidratio
+          .coverimage-fade{:class => yield(:coverfade_class)}
+            %figure.marketplace-cover-small-fade.fluidratio
+        .title-container
+          .title-header-wrapper
+            .marketplace-title-header
+              = yield :title_header
+
+    %article.page-content
+      .wrapper
+        = render :partial => "layouts/notifications"
+        = yield
+
+  -#
+    This is not pretty, but works.
+    On homepage, we want to wrap the whole page content (search bar and the "real" content) to a form, so that
+    pressing send from either search bar of filter list will send all the form fields
+
+  - if params[:controller] == "homepage" && params[:action] == "index"
+    %form{method: "get", id: "homepage-filters"}
+      - params.except("action", "controller", "q", "view", "utf8").each do |param, value|
+        - unless param.match(/^filter_option/) || param.match(/^checkbox_filter_option/) || param.match(/^nf_/) || param.match(/^price_/)
+          = hidden_field_tag param, value
+      = hidden_field_tag "view", @view_type
+      = content_for(:page_content)
+  - else
+    = content_for(:page_content)
+
+  = render :partial => "layouts/google_analytics_script"
+
+  -# Most of the JavaScript should be for performance reasons at the end of the body
+
+  = content_for(:location_search)
+
+  -# load Facebook SDK for the whole page
+  = render :partial => "layouts/facebook_sdk"
+
+  = javascript_include_tag 'application'
+  =# javascript_include_tag "application1"
+  = javascript_include_tag "bootstrap.min.js"
+
+  - if @analytics_event
+    :javascript
+      report_analytics_event(#{@analytics_event});
+
+  :javascript
+    $(function() {
+      FastClick.attach(document.body);
+      $('input, textarea').placeholder();
+    });
+
+  -# Disable animations on tests
+  - if Rails.env.test?
+    :javascript
+      $(function() {
+        $.transit.enabled = false;
+      });
+
+  = content_for :extra_javascript
+
+  :javascript
+    $(document).ready(function() { initialize_defaults("#{I18n.locale}"); #{yield :javascript} });
+  :javascript
+    $(document).ready(function(){
+      $(".datepicker").click(function(){
+        $('.datepicker').datepicker();
+      });
+      $("#lead_value").change(function(){
+        if($(this).val() == "Hours") {
+          $("#listing-message-links").hide()
+          $(".listing-price").show()
+        }
+        if($(this).val() == "Date") {
+          $("#listing-message-links").show()
+          $(".listing-price").hide()
+        }
+      });
+    });
+
+  = render :partial => "layouts/noscript"
+
+
+:javascript
+  $(document).ready(
+    
+    /* This is the function that will get executed after the DOM is fully loaded */
+    function () {
+      $( "#adaad" ).datepicker({
+        changeMonth: true,//this option for allowing user to select month
+        changeYear: true //this option for allowing user to select from year range
+      });
+       $( "#adaadd" ).datepicker({
+        changeMonth: true,//this option for allowing user to select month
+        changeYear: true //this option for allowing user to select from year range
+      });
+    }
+  );
+:javascript
+  window.fbAsyncInit = function() {
+  
+  FB.init({
+  appId      : '1668524880060239', // Community App ID if availble or else the one from the app dashboard
+  channelUrl : '//listing.spacessy.co/channel.html', // Channel file for x-domain comms
+  status     : false,                                 // Check Facebook Login status
+  xfbml      : true,                                  // Look for social plugins on the page
+  version    : 'v2.3'
+  });
+  
+  };
+  
+  (function(d, s, id){
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+:javascript
+  $(function() {
+    FastClick.attach(document.body);
+    $('input, textarea').placeholder();
+  });
+:javascript
+  window.ST.rangeFilter("#range-slider-price", [0, 5000], [0, 5000], ["#price-filter-min-value", "#price-filter-max-value"], ["#price_min", "#price_max"], false)
+:javascript
+  $(document).ready(function(){
+      $("#showmore").click(function(){
+          $("#moreview").show(1000);
+      });
+    
+    $(document).ready(function(){
+      $("#close").click(function(){
+          $("#moreview").hide(1000);
+      });
+  });
+  });
+

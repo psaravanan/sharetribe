@@ -1,0 +1,57 @@
+<h1>My Wishlist</h1>
+<div class="col-9">
+  <div class="home-listings">
+    <% @listings.each do |listing| %>
+      <div class="home-list-item">
+        <% if listing.listing_images.present? %>
+          <a href="<%= listing_path(listing)%>" class="home-list-image-container-desktop">
+            <img alt="Renting out: Studio for work" class="home-list-image" src="<%= listing.listing_images.first.image.url%>">
+          </a>
+
+        <% end %>
+        <a href="/en/listings/150900-studio-for-work" class="home-list-image-container-mobile"><img alt="Renting out: Studio for work" class="home-list-image" src="<%=listing.author.image %>">
+        </a>
+        <div class="home-list-details-right">
+          <div class="home-list-price">
+            <div class="home-list-price-value">
+              <% if listing.price %>
+                <span class="fluid-thumbnail-grid-image-price"></span>
+                <%= humanized_money_with_symbol(listing.price).upcase %>
+                <% price_unit = price_quantity_slash_unit(listing) %>
+                <% if !price_unit.blank? %>
+                  <% price_text = " " + price_unit %>
+                  <span class="fluid-thumbnail-grid-image-quantity" title="<%= price_text %>"></span>
+                <% end %>
+              <% else %>
+                <span class="<%= modifier_class %> fluid-thumbnail-grid-image-type"></span>
+                <%= shape_name(listing) %>
+              <% end %>
+            </div>
+            <div class="home-list-price-quantity" title="per day">
+              per day
+            </div>
+            <br>
+            <%= link_to "Remove",remove_wish_list_path(listing.id)%>
+          </div>
+        </div>
+        <div class="home-list-details-with-image">
+          <h2 class="home-list-title">
+            <%= link_to listing.title,listing_path(listing.id)%>
+          </h2>
+        </div>
+        <div class="home-list-author home-list-author-with-listing-image">
+          <div class="home-list-avatar">
+            <a href="/en/calebl2" class="home-fluid-thumbnail-grid-author-avatar-image"><img alt="145" src="/system/images/dxVIlQFyKr5yaa-dPlzTtY/thumb/145.jpg?1448891007">
+            </a>
+          </div>
+          <div class="home-list-author-details">
+            <a href="/en/calebl2" class="home-list-author-name">caleb leng
+            </a>
+          </div>
+          <div class="pull-right">
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

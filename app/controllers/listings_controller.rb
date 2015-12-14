@@ -456,22 +456,29 @@ class ListingsController < ApplicationController
 
   def wish_list
     @listing = Listing.find(params[:id])
-    if @wishlist = Wishlist.find_by_person_id_and_listing_id(params[:person_id],params[:id])
-      @wishlist.destroy
-      if params[:data] == "show"
-        redirect_to listing_path(@listing)
+      @wishlist = current_person.wishlists.find_by_listing_id(params[:id])
+      if @wishlist.present?
+        @wishlist.destroy
+        if params[:data] == "show"
+          redirect_to listing_path(@listing)
+        else
+          redirect_to homepage_index_path
+        end 
       else
-        redirect_to homepage_index_path
+        @wishlist = current_person.wishlists.build(:listing_id =>params[:id])
+        @wishlist.save
+        if params[:data] == "show"
+          redirect_to listing_path(@listing)
+        else
+          redirect_to homepage_index_path
+        end 
       end
-    else
-      @wishlist = Wishlist.new(:person_id => params[:person_id],:listing_id =>params[:id])
-      @wishlist.save
-      if params[:data] == "show"
-        redirect_to listing_path(@listing)
-      else
-        redirect_to homepage_index_path
-      end
-    end 
+  end
+
+  def remove_wish_list
+    @wishlist = current_person.wishlists.find_by_listing_id(params[:listing_id])
+    @wishlist.destroy
+    redirect_to wishlist_path
   end
 
   private

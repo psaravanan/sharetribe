@@ -1,7 +1,9 @@
 # encoding: utf-8
+require 'will_paginate/array'
 class HomepageController < ApplicationController
 
   before_filter :save_current_path, :except => :sign_in
+  layout "resolve_layout", :only => :index
 
   APP_DEFAULT_VIEW_TYPE = "grid"
   VIEW_TYPES = ["grid", "list", "map"]
@@ -58,6 +60,8 @@ class HomepageController < ApplicationController
 
     shape_name_map = all_shapes.map { |s| [s[:id], s[:name]]}.to_h
 
+
+    
     if request.xhr? # checks if AJAX request
       search_result.on_success { |listings|
         @listings = listings # TODO Remove
@@ -72,7 +76,7 @@ class HomepageController < ApplicationController
       }
     else
       search_result.on_success { |listings|
-        @listings = listings
+      @listings = listings
         render locals: {
                  shapes: all_shapes,
                  show_price_filter: show_price_filter,
@@ -92,6 +96,10 @@ class HomepageController < ApplicationController
                  listing_shape_menu_enabled: listing_shape_menu_enabled }
       }
     end
+  end
+
+  def wishlist
+    @listings = current_person.listings
   end
 
   def self.selected_view_type(view_param, community_default, app_default, all_types)

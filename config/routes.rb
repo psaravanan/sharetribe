@@ -28,7 +28,8 @@ Kassi::Application.routes.draw do
   post '/webhooks/paypal_ipn' => 'paypal_ipn#ipn_hook', as: :paypal_ipn_hook
   post '/webhooks/plans' => 'plans#create'
   get '/webhooks/trials' => 'plans#get_trials'
-
+  get '/wishlist' => 'homepage#wishlist'
+  get '/listing/:listing_id/remove_wish_list' => 'listings#remove_wish_list' ,:as => "remove_wish_list"
   post '/bounces' => 'amazon_bounces#notification'
 
   match "/people/:person_id/inbox/:id", :to => redirect("/fi/people/%{person_id}/messages/%{id}")

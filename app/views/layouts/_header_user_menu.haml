@@ -16,6 +16,11 @@
     = icon_tag("settings", ["icon-with-text"])
     = t("layouts.logged_in.settings")
 
+  = link_to wishlist_path(:wishlist=>"wishlist") do
+    = icon_tag("settings", ["icon-with-text"]) 
+    Wishlist
+    
+
   = link_to logout_path do
     = icon_tag("logout", ["icon-with-text"])
     = t("layouts.logged_in.logout")

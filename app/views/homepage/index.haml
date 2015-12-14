@@ -128,6 +128,136 @@
             = render :partial => "filters", :locals => { show_price_filter: show_price_filter, show_custom_fields: @show_custom_fields }
 
   .row
+    .col-md-8.pad-top-30
+  %form#commentForm.form-horizontal{:action => "#", :method => "post", :role => "form"}
+    .form-group
+      .col-sm-2.gap-10
+        %select#sel1.form-control
+          %option{:value => "1"} Dates
+          %option{:value => "2"} Times
+      .col-sm-3.gap-10
+        %input#adaad.wid-100.form-control{"data-format" => "YYYY-MM-DD", "data-lang" => "en", "data-years" => "2015-2035", :type => "text"}
+      .col-sm-3.gap-10
+        %input#adaadd.wid-100.form-control{"data-format" => "YYYY-MM-DD", "data-lang" => "en", "data-years" => "2015-2035", :type => "text"}
+    /
+      <div class="form-group">
+      <div class="col-sm-2 gap-10">
+      </div>
+      <div class="col-sm-3 gap-10">
+      <input type="text" class="wid-100 form-control">
+      </div>
+      <div class="col-sm-3 gap-10">
+      <input type="text" class="wid-100 form-control">
+      </div>
+      </div>
+    
+
+
+
+
+
+    .gap-10
+      %label
+        %h4 City
+      .col-sm-3.gap-10
+        %select#sel1.form-control
+          %option{:value => "1"} Option
+          %option{:value => "1"} Option1
+          %option{:value => "1"} Option2
+          %option{:value => "1"} Option3
+      %label
+        %h4 Spacessy Type
+      .col-sm-3.gap-10
+        %select#sel1.form-control
+          %option{:value => "1"} Option
+          %option{:value => "1"} Option1
+          %option{:value => "1"} Option2
+          %option{:value => "1"} Option3
+    .form-group
+      .col-12.visible-tablet
+        .row
+          %label
+            %h4.pad-lft Price
+          .col-10
+            .custom-filter-options.pad-top-10.gap-10
+              #range-slider-price.range-slider.noUi-target.noUi-ltr.noUi-horizontal.noUi-background
+            .left
+              %span.custom-filter-min-max-title Min:
+              %span#price-filter-min-value 0
+              %input#price_min{:name => "price_min", :type => "hidden", :value => "0"}
+            .right
+              %span.custom-filter-min-max-title Max:
+              %span#price-filter-max-value 5000
+              %input#price_max{:name => "price_max", :type => "hidden", :value => "5000"}
+        %hr/
+    %button#showmore.hidemore{:type => "button"} More
+    #moreview.moreview{:style => "display:none;"}
+      .form-group
+        #close.col-sm-12.gap-10{:style => "text-align:right;", :type => "button"} X
+        .col-sm-6.gap-10
+          %h4 Spacessy Type
+          %hr/
+          - @current_community.custom_fields.sort.each do |field|
+
+            - field.with_type do |type|
+              - if [:dropdown, :checkbox].include?(type)
+                .row
+                  .col-12
+                    .custom-filter-title
+                      = field.name(I18n.locale)
+                    - make_scrollable = field.options.size > 10
+                    .custom-filter-options{:class => make_scrollable ? "scrollable" : ""}
+                      - field.options.sort.each do |option|
+                        .col-sm-6.gap-10.pad-lft
+                          .custom-filter-checkbox-container
+                            %label.custom-filter-checkbox-label
+                              - param_name = type == :dropdown ? "filter_option_#{option.id}" : "checkbox_filter_option_#{option.id}"
+                              = check_box_tag param_name, "#{option.id}", params[param_name]
+                              %span.custom-filter-checkbox-label-text
+                                = option.title(I18n.locale)
+
+
+            - field.with(:numeric) do
+              .row
+                .col-12
+                  .custom-filter-title
+                    = field.name(I18n.locale)
+              .row
+                .col-12
+                  .custom-filter-options
+                    - id = ["range-slider", field.id].join("-")
+                    .range-slider{id: id}
+                      - range = [field.min, field.max]
+                      - start = [params["nf_min_" + field.id.to_s] || field.min, params["nf_max_" + field.id.to_s] || field.max]
+                      - labels = ["#custom-filter-min-value-#{id}", "#custom-filter-max-value-#{id}"]
+                      - fields = ["#nf_min_#{id}", "#nf_max_#{id}"]
+
+                      - content_for :extra_javascript do
+                        :javascript
+                          window.ST.rangeFilter("##{id}", #{range}, #{start}, #{labels}, #{fields}, #{field.allow_decimals})
+
+              .row
+                .col-12
+                  .left
+                    %span.custom-filter-min-max-title= t(".min")
+                    %span{id: "custom-filter-min-value-#{id}"}
+                    %input{type: "hidden", id: "nf_min_#{id}", name: "nf_min_#{field.id}", value: params["nf_min_#{field.id}"]}
+                  .right
+                    %span.custom-filter-min-max-title= t(".max")
+                    %span{id: "custom-filter-max-value-#{id}"}
+                    %input{type: "hidden", id: "nf_max_#{id}", name: "nf_max_#{field.id}", value: params["nf_max_#{field.id}"]}
+
+          %button{type: 'submit'}
+            = t("homepage.custom_filters.update_view")
+
+
+
+
+
+
+
+
+
     - if @category_menu_enabled
       .col-3.visible-tablet
         - if @show_categories
@@ -170,3 +300,7 @@
             = t(".no_listings_with_your_search_criteria")
           - else
             = t(".no_listings_notification", :add_listing_link => link_to(t(".add_listing_link_text"), new_listing_path)).html_safe
+
+
+
+
