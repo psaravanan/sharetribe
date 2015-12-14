@@ -1,0 +1,39 @@
+%h1 My Wishlist
+.col-9
+  .home-listings
+    - @listings.each do |listing|
+      .home-list-item
+        - if listing.listing_images.present?
+          %a.home-list-image-container-desktop{:href => listing_path(listing)}
+            %img.home-list-image{:alt => "Renting out: Studio for work", :src => listing.listing_images.first.image.url}
+        %a.home-list-image-container-mobile{:href => person_path(listing.author.username)}
+          %img.home-list-image{:alt => "Renting out: Studio for work", :src => listing.author.image.url}
+        .home-list-details-right
+          .home-list-price
+            .home-list-price-value
+              - if listing.price
+                %span.fluid-thumbnail-grid-image-price
+                = humanized_money_with_symbol(listing.price).upcase
+                - price_unit = price_quantity_slash_unit(listing)
+                - if !price_unit.blank?
+                  - price_text = " " + price_unit
+                  %span.fluid-thumbnail-grid-image-quantity{:title => price_text}
+              - else
+                %span{:class => "#{modifier_class} fluid-thumbnail-grid-image-type"}
+                = shape_name(listing)
+            .home-list-price-quantity{:title => "per day"}
+              per day
+            %br
+              = link_to "Remove",remove_wish_list_path(listing.id)
+        .home-list-details-with-image
+          %h2.home-list-title
+            = link_to listing.title,listing_path(listing.id)
+        .home-list-author.home-list-author-with-listing-image
+          .home-list-avatar
+            %a.home-fluid-thumbnail-grid-author-avatar-image{:href => person_path(listing.author.username)}
+              %img{:alt => "Renting out: Studio for work", :src => listing.author.image}
+          .home-list-author-details
+            %a.home-list-author-name{:href => person_path(listing.author.username)}
+              = listing.author.username
+          .pull-right
+
