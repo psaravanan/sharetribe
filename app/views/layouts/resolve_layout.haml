@@ -156,10 +156,29 @@
           $("#moreview").show(1000);
       });
     
-    $(document).ready(function(){
       $("#close").click(function(){
           $("#moreview").hide(1000);
       });
-  });
+
+      $("#sel1").bind('change', function () {
+         var url = "/?category=" + $(this).val().toLowerCase();
+          if (url) {
+              window.location.replace(url);
+          }
+          return false;
+      });
   });
 
+:css
+  .pad-top-10{padding-top:10px;}
+  .pad-top-30{padding-top:30px;}
+  hr{height:1px;background:#999;margin-top:1px;margin-bottom:1px;}
+  .form-horizontal .control-label{padding-top:0px;}
+  .scroll{height:136px;overflow:scroll;overflow-x: hidden;}
+  .gap-10{margin-bottom:10px;}
+  .pad-lft{padding-left:15px;}
+  [class*=col-]:first-child {padding-left:15px;}
+  .btn-pad{padding-left:20px;padding-right:20px;}
+  .label, label {float:left;width:inherit;margin-top:0;}
+  input[type=text], input[type=password], input[type=number], textarea {border: 1px solid #c3c3c3;min-height:34px;width: 100%;padding: 0.25em 0.5em;}
+  .moreview{display:none;}
