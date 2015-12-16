@@ -147,91 +147,91 @@
           /     %option{:value => "1"} Option1
           /     %option{:value => "1"} Option2
           /     %option{:value => "1"} Option3
-        .row.custom-filter-title
-          .col-3
-            %span
-              = t("listings.form.price.price")
-          .col-9
-            .custom-filter-options
-              - id = ["range-slider", "price"].join("-")
-              .range-slider{id: id}
-                - min = MoneyUtil.to_units(MoneyUtil.to_money(@current_community.price_filter_min, @current_community.default_currency))
-                - max = MoneyUtil.to_units(MoneyUtil.to_money(@current_community.price_filter_max, @current_community.default_currency))
-                - range = [min, max]
-                - start = [params["price_min"] || min, params["price_max"] || max]
-                - labels = ["#price-filter-min-value", "#price-filter-max-value"]
-                - fields = ["#price_min", "#price_max"]
+  .row.custom-filter-title
+    .col-1
+      %span
+        = t("listings.form.price.price")
+    .col-10
+      .custom-filter-options
+        - id = ["range-slider", "price"].join("-")
+        .range-slider{id: id}
+          - min = MoneyUtil.to_units(MoneyUtil.to_money(@current_community.price_filter_min, @current_community.default_currency))
+          - max = MoneyUtil.to_units(MoneyUtil.to_money(@current_community.price_filter_max, @current_community.default_currency))
+          - range = [min, max]
+          - start = [params["price_min"] || min, params["price_max"] || max]
+          - labels = ["#price-filter-min-value", "#price-filter-max-value"]
+          - fields = ["#price_min", "#price_max"]
 
-                - content_for :extra_javascript do
-                  :javascript
-                    window.ST.rangeFilter("##{id}", #{range}, #{start}, #{labels}, #{fields}, false)
+          - content_for :extra_javascript do
+            :javascript
+              window.ST.rangeFilter("##{id}", #{range}, #{start}, #{labels}, #{fields}, false)
 
-          .row
-            .col-3
-            .col-9
-              .left
-                %span.custom-filter-min-max-title= t("homepage.custom_filters.min")
-                %span{id: "price-filter-min-value"}
-                %input{type: "hidden", id: "price_min", name: "price_min", value: params["price_min"]}
-              .right
-                %span.custom-filter-min-max-title= t("homepage.custom_filters.max")
-                %span{id: "price-filter-max-value"}
-                %input{type: "hidden", id: "price_max", name: "price_max", value: params["price_max"]}
+    .row
+      .col-1
+      .col-10
+        .left
+          %span.custom-filter-min-max-title= t("homepage.custom_filters.min")
+          %span{id: "price-filter-min-value"}
+          %input{type: "hidden", id: "price_min", name: "price_min", value: params["price_min"]}
+        .right
+          %span.custom-filter-min-max-title= t("homepage.custom_filters.max")
+          %span{id: "price-filter-max-value"}
+          %input{type: "hidden", id: "price_max", name: "price_max", value: params["price_max"]}
 
-        %button#showmore.hidemore{:type => "button"} More
-        #moreview.moreview{:style => "display:none;"}
-          .form-group
-            #close.col-sm-12.gap-10{:style => "text-align:right;", :type => "button"} X         
-            - @current_community.custom_fields.sort.each do |field|                
-              - field.with_type do |type|
-                .col-sm-6.gap-10
-                  - if [:dropdown, :checkbox].include?(type)
-                    %h4  
-                      = field.name(I18n.locale)
-                    %hr
-                    - make_scrollable = field.options.size > 10
-                    - field.options.sort.each do |option|
-                      %label{:style=>"font-weight: 200 !important;"}
-                        - param_name = type == :dropdown ? "filter_option_#{option.id}" : "checkbox_filter_option_#{option.id}"
-                        = check_box_tag param_name, "#{option.id}", params[param_name]
-                        %span
-                          = option.title(I18n.locale)
+    %button#showmore.hidemore{:type => "button"} More
+    #moreview.moreview{:style => "display:none;"}
+      .form-group
+        #close.col-sm-12.gap-10{:style => "text-align:right;", :type => "button"} X         
+        - @current_community.custom_fields.sort.each do |field|                
+          - field.with_type do |type|
+            .col-sm-6.gap-10
+              - if [:dropdown, :checkbox].include?(type)
+                %h4  
+                  = field.name(I18n.locale)
+                %hr
+                - make_scrollable = field.options.size > 10
+                - field.options.sort.each do |option|
+                  %label{:style=>"font-weight: 200 !important;"}
+                    - param_name = type == :dropdown ? "filter_option_#{option.id}" : "checkbox_filter_option_#{option.id}"
+                    = check_box_tag param_name, "#{option.id}", params[param_name]
+                    %span
+                      = option.title(I18n.locale)
 
 
-              - field.with(:numeric) do
-                .row
-                  .col-12
-                    .custom-filter-title
-                      = field.name(I18n.locale)
-                .row
-                  .col-12
-                    .custom-filter-options
-                      - id = ["range-slider", field.id].join("-")
-                      .range-slider{id: id}
-                        - range = [field.min, field.max]
-                        - start = [params["nf_min_" + field.id.to_s] || field.min, params["nf_max_" + field.id.to_s] || field.max]
-                        - labels = ["#custom-filter-min-value-#{id}", "#custom-filter-max-value-#{id}"]
-                        - fields = ["#nf_min_#{id}", "#nf_max_#{id}"]
+          - field.with(:numeric) do
+            .row
+              .col-12
+                .custom-filter-title
+                  = field.name(I18n.locale)
+            .row
+              .col-12
+                .custom-filter-options
+                  - id = ["range-slider", field.id].join("-")
+                  .range-slider{id: id}
+                    - range = [field.min, field.max]
+                    - start = [params["nf_min_" + field.id.to_s] || field.min, params["nf_max_" + field.id.to_s] || field.max]
+                    - labels = ["#custom-filter-min-value-#{id}", "#custom-filter-max-value-#{id}"]
+                    - fields = ["#nf_min_#{id}", "#nf_max_#{id}"]
 
-                        - content_for :extra_javascript do
-                          :javascript
-                            window.ST.rangeFilter("##{id}", #{range}, #{start}, #{labels}, #{fields}, #{field.allow_decimals})
+                    - content_for :extra_javascript do
+                      :javascript
+                        window.ST.rangeFilter("##{id}", #{range}, #{start}, #{labels}, #{fields}, #{field.allow_decimals})
 
-                .row
-                  .col-12
-                    .left
-                      %span.custom-filter-min-max-title= t(".min")
-                      %span{id: "custom-filter-min-value-#{id}"}
-                      %input{type: "hidden", id: "nf_min_#{id}", name: "nf_min_#{field.id}", value: params["nf_min_#{field.id}"]}
-                    .right
-                      %span.custom-filter-min-max-title= t(".max")
-                      %span{id: "custom-filter-max-value-#{id}"}
-                      %input{type: "hidden", id: "nf_max_#{id}", name: "nf_max_#{field.id}", value: params["nf_max_#{field.id}"]}
+            .row
+              .col-12
+                .left
+                  %span.custom-filter-min-max-title= t(".min")
+                  %span{id: "custom-filter-min-value-#{id}"}
+                  %input{type: "hidden", id: "nf_min_#{id}", name: "nf_min_#{field.id}", value: params["nf_min_#{field.id}"]}
+                .right
+                  %span.custom-filter-min-max-title= t(".max")
+                  %span{id: "custom-filter-max-value-#{id}"}
+                  %input{type: "hidden", id: "nf_max_#{id}", name: "nf_max_#{field.id}", value: params["nf_max_#{field.id}"]}
 
-        %br
-          .col-sm-6.gap-10
-            %button{type: 'submit'}
-              = t("homepage.custom_filters.update_view")
+    %br
+      .col-sm-6.gap-10
+        %button{type: 'submit'}
+          = t("homepage.custom_filters.update_view")
 
 
 
