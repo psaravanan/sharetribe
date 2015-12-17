@@ -166,10 +166,8 @@
     - is_marketplace_admin = Maybe(@current_user).has_admin_rights_in?(@current_community).or_else(false)
     - is_authorized = is_author || is_marketplace_admin
     .row-with-divider
-      - if !is_author
-        = select_tag :lead_value,options_for_select((Listing::Listing_value)) if current_person.present?  
       .col-12
-        #listing-message-links{:style => "display :none;"}
+        #listing-message-links
           = render :partial => "listing_actions", locals: { form_path: form_path, payment_gateway: payment_gateway, delivery_opts: delivery_opts, process: process, listing_unit_type: listing_unit_type, country_code: country_code }
 
 

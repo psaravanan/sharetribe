@@ -89,16 +89,16 @@
       $(".datepicker").click(function(){
         $('.datepicker').datepicker();
       });
-      $("#lead_value").change(function(){
-        if($(this).val() == "Hours") {
-          $("#listing-message-links").hide()
-          $(".listing-price").show()
-        }
-        if($(this).val() == "Date") {
-          $("#listing-message-links").show()
-          $(".listing-price").hide()
-        }
-      });
+      / $("#lead_value").change(function(){
+      /   if($(this).val() == "Hours") {
+      /     $("#listing-message-links").hide()
+      /     $(".listing-price").show()
+      /   }
+      /   if($(this).val() == "Date") {
+      /     $("#listing-message-links").show()
+      /     $(".listing-price").hide()
+      /   }
+      / });
     });
 
   = render :partial => "layouts/noscript"

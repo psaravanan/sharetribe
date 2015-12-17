@@ -147,147 +147,147 @@
           /     %option{:value => "1"} Option1
           /     %option{:value => "1"} Option2
           /     %option{:value => "1"} Option3
-  .row.custom-filter-title
-    .col-1
-      %span
-        = t("listings.form.price.price")
-    .col-10
-      .custom-filter-options
-        - id = ["range-slider", "price"].join("-")
-        .range-slider{id: id}
-          - min = MoneyUtil.to_units(MoneyUtil.to_money(@current_community.price_filter_min, @current_community.default_currency))
-          - max = MoneyUtil.to_units(MoneyUtil.to_money(@current_community.price_filter_max, @current_community.default_currency))
-          - range = [min, max]
-          - start = [params["price_min"] || min, params["price_max"] || max]
-          - labels = ["#price-filter-min-value", "#price-filter-max-value"]
-          - fields = ["#price_min", "#price_max"]
+  
+      .form-group
+        .col-12.visible-tablet
+          .row
+            %label
+              %h4= t("listings.form.price.price")
+        .col-12
+          .custom-filter-options
+            - id = ["range-slider", "price"].join("-")
+            .range-slider{id: id}
+              - min = MoneyUtil.to_units(MoneyUtil.to_money(@current_community.price_filter_min, @current_community.default_currency))
+              - max = MoneyUtil.to_units(MoneyUtil.to_money(@current_community.price_filter_max, @current_community.default_currency))
+              - range = [min, max]
+              - start = [params["price_min"] || min, params["price_max"] || max]
+              - labels = ["#price-filter-min-value", "#price-filter-max-value"]
+              - fields = ["#price_min", "#price_max"]
 
-          - content_for :extra_javascript do
-            :javascript
-              window.ST.rangeFilter("##{id}", #{range}, #{start}, #{labels}, #{fields}, false)
+              - content_for :extra_javascript do
+                :javascript
+                  window.ST.rangeFilter("##{id}", #{range}, #{start}, #{labels}, #{fields}, false)
 
-    .row
-      .col-1
-      .col-10
-        .left
-          %span.custom-filter-min-max-title= t("homepage.custom_filters.min")
-          %span{id: "price-filter-min-value"}
-          %input{type: "hidden", id: "price_min", name: "price_min", value: params["price_min"]}
-        .right
-          %span.custom-filter-min-max-title= t("homepage.custom_filters.max")
-          %span{id: "price-filter-max-value"}
-          %input{type: "hidden", id: "price_max", name: "price_max", value: params["price_max"]}
+        .row
+          .col-12
+            .left
+              %span.custom-filter-min-max-title= t("homepage.custom_filters.min")
+              %span{id: "price-filter-min-value"}
+              %input{type: "hidden", id: "price_min", name: "price_min", value: params["price_min"]}
+            .right
+              %span.custom-filter-min-max-title= t("homepage.custom_filters.max")
+              %span{id: "price-filter-max-value"}
+              %input{type: "hidden", id: "price_max", name: "price_max", value: params["price_max"]}
 
   
 
-    %button#showmore.hidemore{:type => "button"} More
-    #moreview.moreview{:style => "display:none;"}
-      .form-group
-        #close.col-sm-12.gap-10{:style => "text-align:right;", :type => "button"} X         
-        - @current_community.custom_fields.sort.each do |field|                
-          - field.with_type do |type|
-            .col-sm-6.gap-10
-              - if [:dropdown, :checkbox].include?(type)
-                %h4  
-                  = field.name(I18n.locale)
-                %hr
-                - make_scrollable = field.options.size > 10
-                - field.options.sort.each do |option|
-                  %label{:style=>"font-weight: 200 !important;"}
-                    - param_name = type == :dropdown ? "filter_option_#{option.id}" : "checkbox_filter_option_#{option.id}"
-                    = check_box_tag param_name, "#{option.id}", params[param_name]
-                    %span
-                      = option.title(I18n.locale)
+      %button#showmore.hidemore{:type => "button"} More
+      #moreview.moreview{:style => "display:none;"}
+        .form-group
+          #close.col-sm-12.gap-10{:style => "text-align:right;", :type => "button"} X         
+          - @current_community.custom_fields.sort.each do |field|                
+            - field.with_type do |type|
+              .col-sm-6.gap-10
+                - if [:dropdown, :checkbox].include?(type)
+                  %h4  
+                    = field.name(I18n.locale)
+                  %hr
+                  - make_scrollable = field.options.size > 10
+                  - field.options.sort.each do |option|
+                    %label{:style=>"font-weight: 200 !important;"}
+                      - param_name = type == :dropdown ? "filter_option_#{option.id}" : "checkbox_filter_option_#{option.id}"
+                      = check_box_tag param_name, "#{option.id}", params[param_name]
+                      %span
+                        = option.title(I18n.locale)
 
 
-          - field.with(:numeric) do
-            .row
-              .col-12
-                .custom-filter-title
-                  = field.name(I18n.locale)
-            .row
-              .col-12
-                .custom-filter-options
-                  - id = ["range-slider", field.id].join("-")
-                  .range-slider{id: id}
-                    - range = [field.min, field.max]
-                    - start = [params["nf_min_" + field.id.to_s] || field.min, params["nf_max_" + field.id.to_s] || field.max]
-                    - labels = ["#custom-filter-min-value-#{id}", "#custom-filter-max-value-#{id}"]
-                    - fields = ["#nf_min_#{id}", "#nf_max_#{id}"]
+            - field.with(:numeric) do
+              .row
+                .col-12
+                  .custom-filter-title
+                    = field.name(I18n.locale)
+              .row
+                .col-12
+                  .custom-filter-options
+                    - id = ["range-slider", field.id].join("-")
+                    .range-slider{id: id}
+                      - range = [field.min, field.max]
+                      - start = [params["nf_min_" + field.id.to_s] || field.min, params["nf_max_" + field.id.to_s] || field.max]
+                      - labels = ["#custom-filter-min-value-#{id}", "#custom-filter-max-value-#{id}"]
+                      - fields = ["#nf_min_#{id}", "#nf_max_#{id}"]
 
-                    - content_for :extra_javascript do
-                      :javascript
-                        window.ST.rangeFilter("##{id}", #{range}, #{start}, #{labels}, #{fields}, #{field.allow_decimals})
+                      - content_for :extra_javascript do
+                        :javascript
+                          window.ST.rangeFilter("##{id}", #{range}, #{start}, #{labels}, #{fields}, #{field.allow_decimals})
 
-            .row
-              .col-12
-                .left
-                  %span.custom-filter-min-max-title= t(".min")
-                  %span{id: "custom-filter-min-value-#{id}"}
-                  %input{type: "hidden", id: "nf_min_#{id}", name: "nf_min_#{field.id}", value: params["nf_min_#{field.id}"]}
-                .right
-                  %span.custom-filter-min-max-title= t(".max")
-                  %span{id: "custom-filter-max-value-#{id}"}
-                  %input{type: "hidden", id: "nf_max_#{id}", name: "nf_max_#{field.id}", value: params["nf_max_#{field.id}"]}
+              .row
+                .col-12
+                  .left
+                    %span.custom-filter-min-max-title= t(".min")
+                    %span{id: "custom-filter-min-value-#{id}"}
+                    %input{type: "hidden", id: "nf_min_#{id}", name: "nf_min_#{field.id}", value: params["nf_min_#{field.id}"]}
+                  .right
+                    %span.custom-filter-min-max-title= t(".max")
+                    %span{id: "custom-filter-max-value-#{id}"}
+                    %input{type: "hidden", id: "nf_max_#{id}", name: "nf_max_#{field.id}", value: params["nf_max_#{field.id}"]}
 
-    %br
-      .col-sm-6.gap-10
-        %button{type: 'submit'}
-          = t("homepage.custom_filters.update_view")
-
-    
+        %br
+          .col-sm-8.gap-10
+            %button{type: 'submit'}
+              = t("homepage.custom_filters.update_view")
 
 
-
+      
 
 
 
-    / - if @category_menu_enabled
-    /   .col-3.visible-tablet
-    /     - if @show_categories
-    /       .row
-    /         .col-12
-    /           = link_to t("homepage.filters.all_categories"), params.merge({category: "all"}), :class => "home-categories-main #{if @selected_category.nil? then 'selected' end}"
-    /           - @main_categories.each do |category|
-    /             - show_subcategories = show_subcategory_list(category, Maybe(@selected_category).id.to_i.or_else(nil))
-    /             = link_to category.display_name(I18n.locale), params.merge({category: category}), :class => "home-categories-main #{if show_subcategories then 'selected' end} #{if category.has_subcategories? then 'has-subcategories' end}", :data => {category: category.id}
-    /             - if category.children
-    /               - if show_subcategories
-    /                 - category.children.each do |child|
-    /                   - is_selected = @selected_category == child
-    /                   = link_to child.display_name(I18n.locale), params.merge({category: child}), :class => "home-categories-sub #{if is_selected then 'selected' end}", :data => {:"sub-category" =>child.id}
 
-    /     #desktop-filters
-    /       - # Filters will be relocated here when in desktop
 
-    - main_container_class = if @category_menu_enabled then "col-9" else "col-12" end
-    %div{:class => main_container_class}
-      - if @listings.total_entries > 0
-        - if @view_type.eql?("map")
-          .home-map
-            = render :partial => "map"
+
+      / - if @category_menu_enabled
+      /   .col-3.visible-tablet
+      /     - if @show_categories
+      /       .row
+      /         .col-12
+      /           = link_to t("homepage.filters.all_categories"), params.merge({category: "all"}), :class => "home-categories-main #{if @selected_category.nil? then 'selected' end}"
+      /           - @main_categories.each do |category|
+      /             - show_subcategories = show_subcategory_list(category, Maybe(@selected_category).id.to_i.or_else(nil))
+      /             = link_to category.display_name(I18n.locale), params.merge({category: category}), :class => "home-categories-main #{if show_subcategories then 'selected' end} #{if category.has_subcategories? then 'has-subcategories' end}", :data => {category: category.id}
+      /             - if category.children
+      /               - if show_subcategories
+      /                 - category.children.each do |child|
+      /                   - is_selected = @selected_category == child
+      /                   = link_to child.display_name(I18n.locale), params.merge({category: child}), :class => "home-categories-sub #{if is_selected then 'selected' end}", :data => {:"sub-category" =>child.id}
+
+      /     #desktop-filters
+      /       - # Filters will be relocated here when in desktop
+
+      - main_container_class = if @category_menu_enabled then "col-12" else "col-12" end
+      %br
+      %div{:class => main_container_class}
+        - if @listings.total_entries > 0
+          - if @view_type.eql?("map")
+            .home-map
+              = render :partial => "map"
+          - else
+            - if @view_type.eql?("grid")
+              %div{class: @category_menu_enabled ? "home-fluid-thumbnail-grid-narrow" : "home-fluid-thumbnail-grid-wide"}
+                .home-fluid-thumbnail-grid
+                  = render :partial => "grid_item", :collection => @listings, :as => :listing
+            - else
+              .home-listings
+                = render :partial => "list_item", :collection => @listings, :as => :listing, locals:{shape_name_map: shape_name_map, testimonials_in_use: testimonials_in_use}
+            .home-loading-more
+              = will_paginate(@listings)
+              - item_container = if @view_type.eql?("grid") then '.home-fluid-thumbnail-grid' else '.home-listings' end
+              = pageless(@listings.total_pages, item_container, request.fullpath, t('.loading_more_content'))
         - else
-          - if @view_type.eql?("grid")
-            %div{class: @category_menu_enabled ? "home-fluid-thumbnail-grid-narrow" : "home-fluid-thumbnail-grid-wide"}
-              .home-fluid-thumbnail-grid
-                = render :partial => "grid_item", :collection => @listings, :as => :listing
-          - else
-            .home-listings
-              = render :partial => "list_item", :collection => @listings, :as => :listing, locals:{shape_name_map: shape_name_map, testimonials_in_use: testimonials_in_use}
-          .home-loading-more
-            = will_paginate(@listings)
-            - item_container = if @view_type.eql?("grid") then '.home-fluid-thumbnail-grid' else '.home-listings' end
-            = pageless(@listings.total_pages, item_container, request.fullpath, t('.loading_more_content'))
-      - else
-        .home-no-listings
-          - if params[:q] || params[:category] || params[:share_type] # Some filter in use
-            = t(".no_listings_with_your_search_criteria")
-          - else
-            = t(".no_listings_notification", :add_listing_link => link_to(t(".add_listing_link_text"), new_listing_path)).html_safe
+          .home-no-listings
+            - if params[:q] || params[:category] || params[:share_type] # Some filter in use
+              = t(".no_listings_with_your_search_criteria")
+            - else
+              = t(".no_listings_notification", :add_listing_link => link_to(t(".add_listing_link_text"), new_listing_path)).html_safe
 
-    .col-md-3.pad-top-40
+    .col-md-4.pad-top-30
       %iframe{:allowfullscreen => "", :frameborder => "0", :height => "800", :src => "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5938.979980771974!2d12.44768382450996!3d41.90382425201743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1325890a57d42d3d%3A0x94f9ab23a7eb0!2sVatican+City!5e0!3m2!1sen!2sin!4v1449305682968", :style => "border:0", :width => "100%"}
-
-
-
 
