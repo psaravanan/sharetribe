@@ -436,12 +436,12 @@ class ListingsController < ApplicationController
 
   def favorites_like
     @listing = Listing.find(params[:id])
-    if @favorite = Favorite.find_by_person_id_and_listing_image_id(params[:person_id],params[:id])
-      @favorite.destroy
+    if favorite = Favorite.find_by_person_id_and_listing_image_id(params[:person_id],params[:id])
+      favorite.destroy
       if params[:data] == "show"
         redirect_to listing_path(@listing)
       else
-        redirect_to homepage_index_path
+        render :layout => false
       end
     else
       @favorite = Favorite.new(:person_id => params[:person_id],:listing_image_id =>params[:id])
@@ -449,7 +449,7 @@ class ListingsController < ApplicationController
       if params[:data] == "show"
         redirect_to listing_path(@listing)
       else
-        redirect_to homepage_index_path
+        render :layout => false
       end
     end 
   end
