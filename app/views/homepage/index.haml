@@ -9,15 +9,7 @@
     height: 700px;
     margin-left: -150px;
     }
-  #main-wrap {
-    overflow: hidden;
-  }
 
-  .home-fluid-thumbnail-grid-item{
-      float: left;
-      width: 50%;
-  }
-  
 :javascript
   var count = 0;
   var places = [];
@@ -127,7 +119,7 @@
         = render :partial => "location_bar"
       - else
         = render :partial => "search_bar"
-
+        
 .container
   %ul.bxslider
     - SliderImage.all.each do |slide|
