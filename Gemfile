@@ -17,6 +17,7 @@ end
 
 gem 'sass-rails'
 gem 'compass-rails'
+#gem 'unicorn'
 
 # Requiring 'compass' gem directly is not normally needed,
 # 'compass-rails' already does that.
@@ -49,10 +50,10 @@ gem 'thinking-sphinx', '~> 3.1.1'
 gem 'flying-sphinx', "~>1.2.0"
 # Use patched v2.0.2
 # Fixes issues: Create a new delayed delta job if there is an existing delta job which has failed
-gem 'ts-delayed-delta', "~>2.0.2",
-  :git    => 'git://github.com/pat/ts-delayed-delta.git',
-  :branch => 'master',
-  :ref    => '839284f2f28b3f4caf3a3bf5ccde9a6d222c7f4d'
+gem 'ts-delayed-delta', "~>2.0.2", :path=>"/var/www/ts-delayed-delta"
+#  :git    => 'git://github.com/pat/ts-delayed-delta.git',
+#  :branch => 'master',
+#  :ref    => '839284f2f28b3f4caf3a3bf5ccde9a6d222c7f4d'
 gem 'possibly', '~> 0.2.0'
 gem 'recaptcha'
 gem 'delayed_job', "~>3.0.5"
@@ -81,10 +82,10 @@ gem 'statesman', '~> 0.5.0'
 gem "premailer"
 gem 'stringex', '~> 2.5.2'
 gem 'validates_timeliness', '~> 3.0'
-gem 'paypal-sdk-permissions',
-  :git    => 'git://github.com/paypal/permissions-sdk-ruby.git',
-  :branch => 'master',
-  :ref    => 'c0240bee9f94fe6338d67b4f754e1a11ce81619a'
+gem 'paypal-sdk-permissions',:path=>"/var/www/permissions-sdk-ruby"
+#  :git    => 'git://github.com/paypal/permissions-sdk-ruby.git',
+#  :branch => 'master',
+#  :ref    => 'c0240bee9f94fe6338d67b4f754e1a11ce81619a'
 gem 'paypal-sdk-merchant', '~> 1.116.0'
 gem 'airbrake', '~>4.1.0'
 gem 'cache_digests'
@@ -147,3 +148,4 @@ group :development, :test do
 end
 
 gem 'strong_parameters'
+gem 'therubyracer'
