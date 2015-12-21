@@ -1,3 +1,98 @@
+- content_for :extra_javascript do
+  = javascript_include_tag 'modestmaps.min.js'
+  = javascript_include_tag 'follow2.js'
+
+:css
+  #map {
+    float:right;
+    width: 100%;
+    height: 700px;
+    margin-left: -150px;
+    }
+
+:javascript
+  var count = 0;
+  var places = [];
+  window.onload = function(){
+        initMap();
+    };
+  var map;
+  var pointsOnMap = [];
+  var initMap = function() {
+    var mm = com.modestmaps;
+    var template = 'http://otile2.mqcdn.com/tiles/1.0.0/osm/{Z}/{X}/{Y}.jpg';
+    var subdomains = ['', 'a.', 'b.', 'c.'];
+    var provider = new mm.TemplatedLayer(template, subdomains);
+    var centerLat = 37.811530;
+    var centerLong = -122.2666097;
+
+    map = new mm.Map('map', provider)
+    
+    for(var i =0; i < places.length; i++){
+    //add new points to array for later manipulation
+    //console.log(places[i].lat);
+     pointsOnMap[places[i].id] = new mm.Follower(map, new mm.Location(places[i].lat, places[i].long), "$"+ places[i].price+" SGD");
+     
+     if(i==0) {
+        centerLat = places[i].lat;
+        centerLong = places[i].long;
+     }
+     
+    }
+    
+    //center it at first point
+    map.setCenterZoom(new mm.Location(centerLat, centerLong), 12);
+  }
+  
+  //function for mouseover change.
+  function changeFill(el){
+    var bubble = el.querySelector("#bubble");
+    var bubCtx = bubble.getContext('2d');
+    bubCtx.fillStyle = "#006666";
+    bubCtx.fill();
+  }
+  
+  //function to change back on mouseout.
+  function changeBack(el){
+    var bubble = el.querySelector("#bubble");
+    var bubCtx = bubble.getContext('2d');
+    bubCtx.fillStyle = "rgb(247, 68, 68)";
+    bubCtx.fill();
+  }
+
+
+-@listings.each do |listing|
+  :javascript
+      count++;
+      //console.log(count);
+      var test = "/listings/#{listing.url}"
+      var run = httpGet(test);
+      var teststring = '<input id="origin_loc_latitude" name="origin_loc[latitude]" type="hidden" value="'
+      var teststring2 = '<input id="origin_loc_longitude" name="origin_loc[longitude]" type="hidden" value="'
+      var index = run.indexOf(teststring);
+      var index2 = run.indexOf(teststring2)
+      var go = run.substring(index + teststring.length, index + teststring.length+10);
+      var go2 = run.substring(index2 + teststring2.length, index2 + teststring2.length+10);
+      
+      var lat = parseFloat(go);
+      var long = parseFloat(go2);
+      //console.log(lat + " " + long);
+      
+      var place = {
+      price: "#{listing.price}",
+      id: "#{listing.id}",
+      lat: lat,
+      long: long,
+      }
+      places.push(place);
+      function httpGet(theUrl)
+      {
+          var xmlHttp = new XMLHttpRequest();
+          xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+          xmlHttp.send( null );
+          return xmlHttp.responseText;
+      }
+
 - content_for :javascript do
   initialize_homepage();
 
@@ -24,14 +119,12 @@
         = render :partial => "location_bar"
       - else
         = render :partial => "search_bar"
-
+        
 .container
   %ul.bxslider
     - SliderImage.all.each do |slide|
       %a{:href => "#{slide.image_url}"}
         %img{:src => slide.avatar,:style=>"width:100%;"}
-        
-              
       
 - if @current_community.private? && show_big_cover_photo?
   - if @community_customization && @community_customization.private_community_homepage_content
@@ -289,5 +382,4 @@
               = t(".no_listings_notification", :add_listing_link => link_to(t(".add_listing_link_text"), new_listing_path)).html_safe
 
     .col-md-4.pad-top-30
-      %iframe{:allowfullscreen => "", :frameborder => "0", :height => "800", :src => "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5938.979980771974!2d12.44768382450996!3d41.90382425201743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1325890a57d42d3d%3A0x94f9ab23a7eb0!2sVatican+City!5e0!3m2!1sen!2sin!4v1449305682968", :style => "border:0", :width => "100%"}
-
+      #map

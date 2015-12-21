@@ -1,0 +1,8 @@
+<%# binding.pry %>
+<% if @favorite.present? %>
+	$(".listing_<%= @listing.id %>").removeClass("icon-heart-empty");
+	$(".listing_<%= @listing.id %>").addClass("fa fa-heart");
+<% else %>
+	$(".listing_<%= @listing.id %>").removeClass("fa fa-heart");
+	$(".listing_<%= @listing.id %>").addClass("icon-heart-empty");
+<% end %>
