@@ -31,22 +31,25 @@
           = shape_name(listing)
 
     .fluid-thumbnail-grid-image-price-container2
-      %span
-        -if current_person.present? 
-          %a{"data-remote" => "true",:href => "#{favorites_like_person_listing_path(current_person.id,listing.id,:format=>"xhr")}", :target => ""} 
-            -if Favorite.find_by_person_id_and_listing_image_id(current_person.id,listing.id).present?
-              %span.fa.fa-heart.fa-3x{:class=>"listing_#{listing.id}"}
-            -else
-              %span.icon-heart-empty.fa-3x{:class=>"listing_#{listing.id}"}
+      / %span
+      /   -if current_person.present? 
+      /     %a{"data-remote" => "true",:href => "#{favorites_like_person_listing_path(current_person.id,listing.id,:format=>"xhr")}", :target => ""} 
+      /       -if Favorite.find_by_person_id_and_isting_image_id(current_person.id,listing.id).present?
+      /         %span.fa.fa-heart.fa-3x{:class=>"listing_#{listing.id}"}
+      /       -else
+      /         %span.icon-heart-empty.fa-3x{:class=>"listing_#{listing.id}"}
 
     
       %span
         -if current_person.present? 
-          %a{:href => "#{wish_list_person_listing_path(current_person.id,listing.id)}", :target => ""} 
+          %a{"data-remote" => "true",:href => "#{wish_list_person_listing_path(current_person.id,listing.id)}", :target => ""} 
             -if Wishlist.find_by_person_id_and_listing_id(current_person.id,listing.id).present?
-              %span.fa.fa-flag.fa-3x
+              %span.fa.fa-flag.fa-3x{:class=>"wish_#{listing.id}"}
             -else
-              %span.fa.fa-flag-o.fa-3x
+              %span.fa.fa-flag-o.fa-3x{:class=>"wish_#{listing.id}"}
+        - else
+          %a{:href => "#{login_path}", :target => ""} 
+            %span.fa.fa-flag-o.fa-3x
 
 
 

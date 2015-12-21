@@ -462,7 +462,7 @@ class ListingsController < ApplicationController
         if params[:data] == "show"
           redirect_to listing_path(@listing)
         else
-          redirect_to homepage_index_path
+          render :layout => false
         end 
       else
         @wishlist = current_person.wishlists.build(:listing_id =>params[:id])
@@ -470,7 +470,7 @@ class ListingsController < ApplicationController
         if params[:data] == "show"
           redirect_to listing_path(@listing)
         else
-          redirect_to homepage_index_path
+          render :layout => false
         end 
       end
   end
