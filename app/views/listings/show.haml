@@ -27,21 +27,25 @@
           .fluid-thumbnail-grid-image-price-container2
             %span
               -if current_person.present? 
-                %a{:href => "#{favorites_like_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""} 
+                %a{"data-remote" => "true",:href => "#{favorites_like_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""} 
                   -if Favorite.find_by_person_id_and_listing_image_id(current_person.id,@listing.id).present?
-                    %span.fa.fa-heart.fa-3x
+                    %span.fa.fa-heart.fa-3x{:class=>"listing_#{@listing.id}"}
                   -else
-                    %span.icon-heart-empty.fa-3x
-            %span
-              -if current_person.present? 
-                %a{:href => "#{wish_list_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""}
-                  -if Wishlist.find_by_person_id_and_listing_id(current_person.id,@listing.id).present?
-                    %span.fa.fa-flag.fa-3x
-                  -else
-                    %span.fa.fa-flag-o.fa-3x
+                    %span.icon-heart-empty.fa-3x{:class=>"listing_#{@listing.id}"}
+              - else
+                %a{:href => "#{login_path}", :target => ""} 
+                  %span.icon-heart-empty.fa-3x
+
+            / %span
+            /   -if current_person.present? 
+            /     %a{:href => "#{wish_list_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""}
+            /       -if Wishlist.find_by_person_id_and_listing_id(current_person.id,@listing.id).present?
+            /         %span.fa.fa-flag.fa-3x
+            /       -else
+            /         %span.fa.fa-flag-o.fa-3x
 
 
-                  #thumbnail-stripe.listing-image-thumbnail-stripe
+            /       #thumbnail-stripe.listing-image-thumbnail-stripe
 
 
 %script{type: "text/template", class: "template", id: "image-thumbnail-template"}
@@ -70,20 +74,24 @@
                 .fluid-thumbnail-grid-image-price-container2
                   %span
                     -if current_person.present? 
-                      %a{:href => "#{favorites_like_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""} 
+                      %a{"data-remote" => "true",:href => "#{favorites_like_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""} 
                         -if Favorite.find_by_person_id_and_listing_image_id(current_person.id,@listing.id).present?
-                          %span.fa.fa-heart.fa-3x
+                          %span.fa.fa-heart.fa-3x{:class=>"listing_#{listing.id}"}
                         -else
-                          %span.icon-heart-empty.fa-3x
-                  %span
-                    -if current_person.present? 
-                      %a{:href => "#{wish_list_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""}
-                        -if Wishlist.find_by_person_id_and_listing_id(current_person.id,@listing.id).present?
-                          %span.fa.fa-flag.fa-3x
-                        -else
-                          %span.fa.fa-flag-o.fa-3x
+                          %span.icon-heart-empty.fa-3x{:class=>"listing_#{@listing.id}"}
+                    - else
+                      %a{:href => "#{login_path}", :target => ""} 
+                        %span.icon-heart-empty.fa-3x
 
-                        #thumbnail-stripe.listing-image-thumbnail-stripe
+                  / %span
+                  /   -if current_person.present? 
+                  /     %a{:href => "#{wish_list_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""}
+                  /       -if Wishlist.find_by_person_id_and_listing_id(current_person.id,@listing.id).present?
+                  /         %span.fa.fa-flag.fa-3x
+                  /       -else
+                  /         %span.fa.fa-flag-o.fa-3x
+
+                  /       #thumbnail-stripe.listing-image-thumbnail-stripe
 
             - content_for :extra_javascript do
               :javascript
