@@ -13,7 +13,7 @@ if (!com) {
 
         this.offset = new MM.Point(0, 0);
         this.dimensions = new MM.Point(80, 52);
-        this.margin = new MM.Point(9, 3);
+        this.margin = new MM.Point(9, 6);
         this.offset = new MM.Point(0, -this.dimensions.y);
 
         var follower = this;
@@ -24,7 +24,7 @@ if (!com) {
         this.div = document.createElement('div');
         this.div.style.position = 'absolute';
         this.div.style.color = '#fff';
-        this.div.style.fontSize = '12px';
+        this.div.style.fontSize = '13px';
         this.div.style.width = this.dimensions.x + 'px';
         this.div.style.height = this.dimensions.y + 'px';
 
