@@ -123,7 +123,11 @@
       - else
         = render :partial => "search_bar"
         
-
+.container
+  %ul.bxslider
+    - SliderImage.all.each do |slide|
+      %a{:href => "#{slide.image_url}"}
+        %img{:src => slide.avatar,:style=>"width:100%;"}
       
 - if @current_community.private? && show_big_cover_photo?
   - if @community_customization && @community_customization.private_community_homepage_content
