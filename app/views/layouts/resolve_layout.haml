@@ -2,13 +2,13 @@
   
 %body
   = render :partial => 'layouts/new_global_header'
-  / = stylesheet_link_tag  "newcss/bootstrap.min"
-  / = stylesheet_link_tag  "newcss/flexisel"
-  / = stylesheet_link_tag  "newcss/font-awesome.min"
-  / = stylesheet_link_tag  "newcss/jquery-ui"
-  / = stylesheet_link_tag  "newcss/plugins"
-  / = stylesheet_link_tag  "newcss/style"
-  = stylesheet_link_tag  "newcss/application"
+  = stylesheet_link_tag  "newcss/bootstrap.min"
+  = stylesheet_link_tag  "newcss/flexisel"
+  = stylesheet_link_tag  "newcss/font-awesome.min"
+  = stylesheet_link_tag  "newcss/jquery-ui"
+  = stylesheet_link_tag  "newcss/plugins"
+  = stylesheet_link_tag  "newcss/style"
+  =# stylesheet_link_tag  "newcss/application"
   - if display_expiration_notice?
     = render partial: "layouts/expiration_notice",
         :locals => {external_plan_service_login_url: admin_plan_path}
@@ -61,15 +61,15 @@
 
   -# load Facebook SDK for the whole page
   = render :partial => "layouts/facebook_sdk"
-  / = javascript_include_tag  "jquery"
-  / = javascript_include_tag  "jquery_ujs"
-  / = javascript_include_tag  "newjs/version-1.11.3-jquery.min"
-  / = javascript_include_tag  "newjs/jquery.flexisel"
-  / = javascript_include_tag  "newjs/jquery-ui"
-  / = javascript_include_tag  "newjs/jquery-1"
-  / = javascript_include_tag  "newjs/iscroll"
-  / = javascript_include_tag  "newjs/bootstrap.min"
-  = javascript_include_tag  "newjs/application"
+  = javascript_include_tag  "jquery"
+  = javascript_include_tag  "jquery_ujs"
+  = javascript_include_tag  "newjs/version-1.11.3-jquery.min"
+  = javascript_include_tag  "newjs/jquery.flexisel"
+  = javascript_include_tag  "newjs/jquery-ui"
+  = javascript_include_tag  "newjs/jquery-1"
+  = javascript_include_tag  "newjs/iscroll"
+  = javascript_include_tag  "newjs/bootstrap.min"
+  =# javascript_include_tag  "newjs/application"
 
 
 
