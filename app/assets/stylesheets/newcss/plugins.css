@@ -1,0 +1,206 @@
+/* ================================================================ List and grid */
+.glyphicon { margin-right:5px; }
+.thumbnail
+{
+    margin-bottom: 20px;
+    padding: 0px;
+    border: none;
+}
+.thumbnail .caption {
+    padding: 15px 0px;
+}
+.item.list-group-item
+{
+    float: none;
+    width: 100%;
+    background-color: #fff important;
+    margin-bottom: 25px;
+	padding: 0px 15px;
+	border:none;
+}
+
+
+.item.list-group-item .list-group-image
+{
+    margin-right: 10px;
+}
+.item.list-group-item .thumbnail
+{
+    margin-bottom: 0px;
+}
+.item.list-group-item .caption
+{
+    padding: 9px 9px 0px 9px;
+}
+.item.list-group-item:before, .item.list-group-item:after
+{
+    display: table;
+    content: " ";
+}
+
+.item.list-group-item img
+{
+    float: left;
+}
+.item.list-group-item:after
+{
+    clear: both;
+}
+.list-group-item-text
+{
+    margin: 0 0 11px;
+}
+
+/* ====================================================== Dropdown */
+.navbar-brand {height:auto;}
+.navbar {min-height:none;height:auto !important;}
+.navbar-nav {margin-top:10px;}
+.nav>li>a:hover, .nav>li>a:focus, .nav .open>a, .nav .open>a:hover, .nav .open>a:focus {background:#fff;}
+.dropdown {background:#fff;border:none !important;border-radius:4px;width:100px;}
+.dropdown i{font-size:20px;}
+.dropdown-menu>li>a {color:#428bca;}
+.padding-none{padding:0px !important;}
+.dropdown ul.dropdown-menu {border-radius:4px;box-shadow:none;margin-top:20px;width:200px;}
+.dropdown ul.dropdown-menu:before {content: "";border-bottom: 10px solid #fff;border-right: 10px solid transparent;border-left: 10px solid transparent;position: absolute;top: -10px;right: 16px;z-index: 10;}
+.dropdown ul.dropdown-menu:after {content: "";border-bottom: 12px solid #ccc;border-right: 12px solid transparent;border-left: 12px solid transparent;position: absolute;top: -12px;right: 14px;z-index: 9;}
+/* ====================================================== Carousel */
+.fade-carousel {
+    position: relative;
+    height: 70vh;
+}
+.fade-carousel .carousel-inner .item {
+    height: 70vh;
+}
+.fade-carousel .carousel-indicators > li {
+	width: 15px;
+	height: 15px;
+    margin: 0 2px;
+    background-color: #FF6666;
+    border-color: #FF6666;
+    opacity: .5;
+}
+.fade-carousel .carousel-indicators > li.active {
+  width: 15px;
+  height: 15px;
+  opacity: 1;
+}
+
+/********************************/
+/*          Hero Headers        */
+/********************************/
+.hero {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.75);
+      -webkit-transform: translate3d(-50%,-50%,0);
+         -moz-transform: translate3d(-50%,-50%,0);
+          -ms-transform: translate3d(-50%,-50%,0);
+           -o-transform: translate3d(-50%,-50%,0);
+              transform: translate3d(-50%,-50%,0);
+}
+.hero h1 {
+    font-size: 4.5em;  
+	line-height: 1.2em;
+    font-weight: bold;
+	color:#fff;
+    margin: 0;
+    padding: 0;
+}
+.hero h3 {
+    font-size: 1.5em;  
+	line-height: 1.2em;
+    font-weight: bold;
+	color:#fff;
+    margin: 0;
+    padding: 0;
+}
+.fade-carousel .carousel-inner .item .hero {
+    opacity: 0;
+    -webkit-transition: 2s all ease-in-out .1s;
+       -moz-transition: 2s all ease-in-out .1s; 
+        -ms-transition: 2s all ease-in-out .1s; 
+         -o-transition: 2s all ease-in-out .1s; 
+            transition: 2s all ease-in-out .1s; 
+}
+.fade-carousel .carousel-inner .item.active .hero {
+    opacity: 1;
+    -webkit-transition: 2s all ease-in-out .1s;
+       -moz-transition: 2s all ease-in-out .1s; 
+        -ms-transition: 2s all ease-in-out .1s; 
+         -o-transition: 2s all ease-in-out .1s; 
+            transition: 2s all ease-in-out .1s;    
+}
+
+/********************************/
+/*       Slides backgrounds     */
+/********************************/
+.fade-carousel .slides .slide{
+  height:70vh;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/********************************/
+/*          Media Queries       */
+/********************************/
+@media screen and (min-width: 1024px){
+    .hero { width: 1000px; }    
+}
+
+/* ====================================================== show hide */
+.mini-submenu{
+  display:block;
+  border-radius: 4px;
+  padding: 20px;
+  line-height:0;
+}
+.mini-submenu:hover{
+  cursor: pointer;
+}
+.mini-submenu .icon-bar {
+  border-radius: 1px;
+  display: block;
+  height: 2px;
+  width: 22px;
+  margin-top: 3px;
+}
+.mini-submenu .icon-bar {
+  background-color: #000;
+}
+#slide-submenu{
+  display: block;
+}
+/* ====================================================== Range Slider */
+.form-group .ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+	border: 1px solid #999;
+    background: #fff;
+    border-radius: 15px;
+    height: 25px;
+    width: 25px;
+}
+.form-group .ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+	border: 1px solid #999;
+	background: #fff;
+}
+.form-group .ui-slider-horizontal {
+    height: 0.5em;
+}
+.form-group .ui-slider-horizontal .ui-slider-handle {
+    top: -0.65em;
+}
+.form-group .ui-widget-header {
+    background:#FF6666;
+}
+/* ====================================================== Sticky */

@@ -1,0 +1,60 @@
+%header.container-fluid
+  .row
+    %nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "#{@homepage_path}"}
+            %img.logo.img-responsive{:alt => "logo", :src => "/assets/logo.png"}/
+        #navbar.navbar-collapse.collapse
+          %ul.nav.navbar-nav.navbar-right
+            - unless @current_user
+              %li
+                %a{:href => "#{sign_up_path}"} SignUp 
+              %li
+                %a{:href => "#{login_path}"} SignIn
+            %li.dropdown.active
+              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                %i.fa.fa-bars.pull-left
+                Menu
+              %ul.dropdown-menu
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-home.pull-left
+                    Home
+                %li.divider
+                %li
+                  %a{:href => "#{about_infos_path}"}
+                    %i.fa.fa-info-circle.pull-left
+                    About
+                %li.divider
+                %li
+                  %a{:href => "#{new_user_feedback_path}"}
+                    %i.fa.fa-user.pull-left
+                    Contact Us
+                - if @current_user
+                  %li.divider
+                  %li
+                    %a{:href => "#{wishlist_path}"}
+                      %i.fa.fa-bars.pull-left
+                      Wish List
+                  %li.divider
+                  %li
+                    %a{:href => "#{logout_path}"}
+                      %i.fa.fa-bars.pull-left
+                      Log Out
+            %li
+              %a.padding-none{:href => "#{new_listing_path}"}
+                %button.btn.btn-hero.btn-lg{:role => "button"} 
+                  =t("homepage.index.post_new_listing")
+        / /.nav-collapse
+
+  / row close
+/ header close
+
+
+

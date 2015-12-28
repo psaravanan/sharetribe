@@ -1,0 +1,167 @@
+/* ==================================
+	COUSTOM CSS FOR HTML
+	Template name: Diwesh Sharma Custom template
+	Created: 4 December 2015       
+====================================*/
+
+/* ================================================================ Typography */
+body {font-size:14px;line-height:1.42857143;color:#405C6F;background-color:#fff;margin:0;}
+h1, h2, h3, h4, h5, h6 {font-weight:500;line-height:1.1;color:#405C6F;margin:0px; text-rendering: optimizelegibility;}
+h1{font-size:45px;line-height:35px;}
+h2{font-size:40px;line-height:40px;}
+h3{font-size:30px;line-height:35px;}
+h4{font-size:25px;line-height:25px;}
+h5{font-size:18px;line-height:18px;}
+h6{font-size:16px;line-height:17px;}
+p{font-size:18px;font-weight:500;line-height:22px;margin:0px;}
+small{font-size:70%;}
+big{font-size:125%;}
+textarea{resize:none;}
+a {color:#333;text-decoration:none;}
+a:focus{outline: none;outline-offset: none;}
+a:hover,a:focus {color:#f66;}
+a:link{transition-property:color .3s linear 0s;	-moz-transition:color .3s linear 0s; -webkit-transition:color .3s linear 0s; -o-transition:color .3s linear 0s;	text-decoration:none;}
+img{vertical-align:middle;}
+hr{height:1px;background:#999;margin-top:1px;margin-bottom:1px;}
+ul, menu, dir{-webkit-padding-start: 0px;}
+label {font-weight: normal;}
+/* ================================================================ Bootstrap Changes */
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {background-color:#FF6666;border-color:#FF6666;}
+/* ================================================================ Custom Classes */
+.outer {display: table;position:absolute;height:100%;width:100%;}
+.middle {display:table-cell;vertical-align:middle;}
+.inner {margin-left:auto;margin-right:auto;width:/*whatever width you want*/;}
+.border{border:5px solid #fff;height:inherit;}
+.border-blue{border:2px solid #406CA4;margin:0px 20px;}
+.top {margin-top:70px;}
+.logo {display:table;}
+.rel{position:relative;}
+.flag a{position:absolute;top:5px;left:25px;font-size:30px !important;color:rgba(200,200,200,1);transition:color 0.5s ease;}
+.flag a:hover{color:rgba(255,102,102,1);}
+.heart a{position:absolute;top:5px;right:25px;font-size:30px !important;color:rgba(200,200,200,1);transition:color 0.5s ease;}
+.heart a:hover{color:rgba(255,102,102,1);}
+.price a{position:absolute;bottom:0px;left:15px;font-size:20px !important;color:rgba(200,200,200,1);transition:color 0.5s ease;padding:5px 20px;background:rgba(0,0,0,0.6);}
+.price a:hover{color:rgba(255,102,102,1);background:rgba(0,0,0,0.9);}
+.user a{position:absolute;bottom:-0px;right:25px;}
+.user-border{border-radius:50%;height:65px;width:65px;border:5px solid rgba(200,200,200,0.5);transition:border 0.5s ease;}
+.user-border:hover{border:5px solid rgba(200,102,102,0.7);}
+.about a{position:absolute;bottom:-50px;left:0px; padding:0px 15px;}
+.wid-100{width:100%;}
+.float-left{float:left;}
+.float-right{float:right;}
+.padding-15{padding:15px;}
+.pad-top-10{padding-top:10px;}
+.pad-top-20{padding-top:20px;}
+.pad-top-30{padding-top:30px;}
+.scroll{height:136px;overflow:scroll;overflow-x: hidden; }
+.scroll2{overflow-x: hidden;overflow-y: auto;height: 600px;}
+.pad-rt{padding-right:7px;}
+.pad-lft{padding-left:7px;}
+.gap-10{margin-bottom:10px;}
+.gap-20{margin-bottom:20px;}
+.gap-70{margin-bottom:70px;}
+.white-txt{color:#FFF;}
+.grey-bg{background:#f8f8f8;}
+.center{margin:0 auto;display:table;float:none;}
+.linear {background: linear-gradient(to right, rgba(0,0,0,0.01), rgba(0,0,0,0.9));}
+.banner-bg{background: url("../images/slide.jpg") no-repeat fixed center center / cover;}
+.parallax{background: url("../images/about.jpg") no-repeat fixed center center / cover;}
+.bg-yellow-2 {background: url("../images/yellow-1.jpg") no-repeat left top, url("../images/yellow-2.jpg") no-repeat right bottom,#ff7800; border-bottom:solid 5px #000;}
+.btn-custom {color: #fff !important; padding: 10px 20px 10px 20px; text-decoration: none; background:#00b299; text-align: center;}
+.btn-custom:hover {background: #0ebea6;}
+.btn.btn-hero,
+.btn.btn-hero:hover,
+.btn.btn-hero:focus {
+    color: #fff;
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+    outline: none;
+    margin: 3px;
+	margin-left:15px;
+}
+/* ================================================================ Ma lists */
+.icon {margin-top:20px;}
+.icon li {display:inline-block;margin:0px 5px;}
+.icon li a{color:#fff;}
+.social li a{color:#fff;}
+.social {margin:0 auto;display:table;}
+.social li {display:inline-block;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%;color:#fff;width:30px;height: 30px;font-size:18px;line-height:30px;text-align: center;border:solid 2px #eee;margin:0px 5px;}
+.social li a{color:#fff;}
+.social li:hover{-moz-transform:rotate(360deg);-webkit-transform:rotate(360deg);-ms--transform:rotate(360deg);transform:rotate(360deg);-webkit-transition:all 0.7s;-moz-transition:all 0.7s;-o-transition:all 0.7s;-ms-transition:all 0.7s;transition:all 0.7s;}
+.bottom-menu {padding-left:0px;margin:0 auto;display:table;text-align: center;}
+.bottom-menu li {list-style: none;display: inline-block;margin:0px 15px;font-size: 18px;}
+.bottom-menu li a {color: #fff;}
+.bottom-menu li a:hover {color:#00B299;}
+.ma .bottom-menu li a {color:#405C6F;}
+.ma .bottom-menu li a:hover {color:#00B299;}
+
+
+/* ================================================================ hover effect */
+.mar-lft{margin-left:-25px;margin-top:-25px;}
+.btn-ds{position:relative;overflow:hidden;padding:0px 10px;color:#ffffff;border:solid #ffffff 2px;background:transparent;transition-property:background .9s linear 0s;	-moz-transition:background .9s linear 0.9s; -webkit-transition:background .9s linear 0s; -o-transition:color .9s linear 0s;display:-webkit-inline-box;margin-bottom:3px;}
+.btn-ds:hover {background:#fff;text-decoration:none;}
+.btn-blk{position:relative;overflow:hidden;border: 1px solid #405C6F; padding:5px 10px;color:#ffffff;font-size:16px;border:solid #ffffff 2px;background:transparent;transition-property:background .9s linear 0s;	-moz-transition:background .9s linear 0.9s; -webkit-transition:background .9s linear 0s; -o-transition:color .9s linear 0s;}
+.btn-blk:hover {background:#fff;text-decoration:none;}
+/* ================================================================ Media Queries */
+
+@media (max-width: 1280px) {
+h1 {font-size: 40px;}
+h2 {font-size: 35px;}
+h3 {font-size: 25px;}
+p {font-size:13px;}
+.hero{width: 100%;}
+.image .txt1 {bottom:40%;}
+.image .txt2 {bottom:20%;}
+.image .txt3 {top: 10%;}
+.image .txt4 {bottom: 10%;}
+}
+@media (max-width: 1024px) {
+h1 {font-size:17px;line-height:19px;}
+h2 {font-size:16px;line-height:18px;}
+h3 {font-size:15px;line-height:17px;}
+h4 {font-size:14px;line-height:16px;}
+h5 {font-size:13px;line-height:18px;}
+p {font-size: 11px;line-height:18px;}
+.navbar-bootsnipp .navbar-nav > li > a {font-size:12px;}
+.navbar-bootsnipp .navbar-nav > li > a {margin:22px 6px;}
+.border {border: inherit;}
+.mar-lft {margin-left:-20px;margin-top:-20px;}
+.border-blue {margin:0px 0px;}
+}
+@media (max-width: 767px) {
+h1 {font-size: 30px;line-height:35px;}
+h2 {font-size: 25px;line-height:30px;}
+h3 {font-size: 20px;line-height:25px;}
+h4 {font-size:18px;line-height:22px;}
+h5 {font-size:13px;line-height:18px;}
+p {font-size:13px;line-height:11px;}
+.hero h1 {font-size: 2.5em !important;}
+.logo {width:100px;display:table;margin:0 auto;}
+.navbar {min-height:50px;}
+.gap-30{margin-bottom:15px;}
+.txt-center{text-align:center;}
+.bottom-menu li {display: list-item;}
+.top {margin-top: 55px;}
+}
+@media  (max-width: 480px) {
+h1 {font-size:17px;line-height:19px;}
+h2 {font-size:16px;line-height:18px;}
+h3 {font-size:15px;line-height:17px;}
+h4 {font-size:14px;line-height:16px;}
+h5 {font-size:13px;line-height:18px;}
+p {font-size: 11px;}
+.hero h1 {font-size: 1.5em !important;}
+.hero h3 {font-size: 1em !important;}
+.btn-lg, .btn-group-lg>.btn {font-size:12px;}
+.btn.btn-lg {padding:10px 20px;}
+.gap-10 {margin-bottom:5px;}
+}
+@media  (max-width: 320px) {
+h1 {font-size:16px;line-height:18px;}
+h2 {font-size:15px;line-height:17px;}
+h3 {font-size:14px;line-height:16px;}
+h4 {font-size:13px;line-height:15px;}
+h5 {font-size:12px;line-height:18px;}
+p {font-size: 10px;}
+
+}

@@ -1,8 +1,8 @@
 <% wishlist = Wishlist.find_by_id(@wishlist.id)%>
 <% if !wishlist.nil? %>
-	$(".wish_<%= @listing.id %>").removeClass("fa-flag-o");
-	$(".wish_<%= @listing.id %>").addClass("fa-flag");
+	$(".wish_<%= @listing.id %>").removeClass("fa fa-thumbs-o-up");
+	$(".wish_<%= @listing.id %>").addClass("fa fa-thumbs-up");
 <% else %>
-	$(".wish_<%= @listing.id %>").removeClass("fa-flag");
-	$(".wish_<%= @listing.id %>").addClass("fa-flag-o");
+	$(".wish_<%= @listing.id %>").removeClass("fa fa-thumbs-up");
+	$(".wish_<%= @listing.id %>").addClass("fa fa-thumbs-o-up");
 <% end %>

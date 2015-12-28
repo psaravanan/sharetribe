@@ -1,15 +1,14 @@
-= render :partial => 'layouts/head'
-
+= render :partial => 'layouts/new_head'
+  
 %body
-
-  %noscript
-    .noscript-padding
-      -# Noscript content will be positioned here
-  = stylesheet_link_tag "application1"
-  = stylesheet_link_tag "bootstrap.min"
-  =# stylesheet_link_tag "application"
-  = render :partial => 'layouts/global-header'
-
+  = render :partial => 'layouts/new_global_header'
+  / = stylesheet_link_tag  "newcss/bootstrap.min"
+  / = stylesheet_link_tag  "newcss/flexisel"
+  / = stylesheet_link_tag  "newcss/font-awesome.min"
+  / = stylesheet_link_tag  "newcss/jquery-ui"
+  / = stylesheet_link_tag  "newcss/plugins"
+  / = stylesheet_link_tag  "newcss/style"
+  = stylesheet_link_tag  "newcss/application"
   - if display_expiration_notice?
     = render partial: "layouts/expiration_notice",
         :locals => {external_plan_service_login_url: admin_plan_path}
@@ -62,51 +61,32 @@
 
   -# load Facebook SDK for the whole page
   = render :partial => "layouts/facebook_sdk"
+  / = javascript_include_tag  "jquery"
+  / = javascript_include_tag  "jquery_ujs"
+  / = javascript_include_tag  "newjs/version-1.11.3-jquery.min"
+  / = javascript_include_tag  "newjs/jquery.flexisel"
+  / = javascript_include_tag  "newjs/jquery-ui"
+  / = javascript_include_tag  "newjs/jquery-1"
+  / = javascript_include_tag  "newjs/iscroll"
+  / = javascript_include_tag  "newjs/bootstrap.min"
+  = javascript_include_tag  "newjs/application"
 
-  = javascript_include_tag 'application'
-  =# javascript_include_tag "application1"
-  = javascript_include_tag "bootstrap.min.js"
 
-  - if @analytics_event
-    :javascript
-      report_analytics_event(#{@analytics_event});
 
-  :javascript
-    $(function() {
-      FastClick.attach(document.body);
-      $('input, textarea').placeholder();
+:javascript
+  $(function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 5000,
+      values: [ 0, 5000 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
     });
-
-  -# Disable animations on tests
-  - if Rails.env.test?
-    :javascript
-      $(function() {
-        $.transit.enabled = false;
-      });
-
-  = content_for :extra_javascript
-
-  :javascript
-    $(document).ready(function() { initialize_defaults("#{I18n.locale}"); #{yield :javascript} });
-  :javascript
-    $(document).ready(function(){
-      $(".datepicker").click(function(){
-        $('.datepicker').datepicker();
-      });
-      / $("#lead_value").change(function(){
-      /   if($(this).val() == "Hours") {
-      /     $("#listing-message-links").hide()
-      /     $(".listing-price").show()
-      /   }
-      /   if($(this).val() == "Date") {
-      /     $("#listing-message-links").show()
-      /     $(".listing-price").hide()
-      /   }
-      / });
-    });
-
-  = render :partial => "layouts/noscript"
-
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  });
 
 :javascript
   $(document).ready(
@@ -123,63 +103,25 @@
       });
     }
   );
+
 :javascript
-  window.fbAsyncInit = function() {
+  $(function(){
   
-  FB.init({
-  appId      : '1668524880060239', // Community App ID if availble or else the one from the app dashboard
-  channelUrl : '//listing.spacessy.co/channel.html', // Channel file for x-domain comms
-  status     : false,                                 // Check Facebook Login status
-  xfbml      : true,                                  // Look for social plugins on the page
-  version    : 'v2.3'
-  });
+    $('#slide-submenu').on('click',function() {             
+          $(this).closest('.list-group').fadeOut('slide',function(){
+            $('.mini-submenu').fadeIn();  
+          });
+          
+        });
   
-  };
-  
-  (function(d, s, id){
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-:javascript
-  $(function() {
-    FastClick.attach(document.body);
-    $('input, textarea').placeholder();
-  });
-/ :javascript
-/   window.ST.rangeFilter("#range-slider-price", [0, 5000], [0, 5000], ["#price-filter-min-value", "#price-filter-max-value"], ["#price_min", "#price_max"], false)
+    $('.mini-submenu').on('click',function(){   
+          $(this).next('.list-group').toggle('slide');
+          $('.mini-submenu').hide();
+    })
+  })
 
 :javascript
   $(document).ready(function(){
-      $("#showmore").click(function(){
-          $("#moreview").show(1000);
-      });
-    
-      $("#close").click(function(){
-          $("#moreview").hide(1000);
-      });
-
-      $("#sel1").bind('change', function () {
-         var url = "/?category=" + $(this).val().toLowerCase();
-          if (url) {
-              window.location.replace(url);
-          }
-          return false;
-      });
+    $('[data-toggle="tooltip"]').tooltip();   
   });
 
-:css
-  .pad-top-10{padding-top:10px;}
-  .pad-top-30{padding-top:30px;}
-  hr{height:1px;background:#999;margin-top:1px;margin-bottom:1px;}
-  .form-horizontal .control-label{padding-top:0px;}
-  .scroll{height:136px;overflow:scroll;overflow-x: hidden;}
-  .gap-10{margin-bottom:10px;}
-  .pad-lft{padding-left:15px;}
-  [class*=col-]:first-child {padding-left:15px;}
-  .btn-pad{padding-left:20px;padding-right:20px;}
-  .label, label {float:left;width:inherit;margin-top:0;}
-  input[type=text], input[type=password], input[type=number], textarea {border: 1px solid #c3c3c3;min-height:34px;width: 100%;padding: 0.25em 0.5em;}
-  .moreview{display:none;}

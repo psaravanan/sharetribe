@@ -1,0 +1,18 @@
+%html
+  %head
+    %meta{charset: "utf-8"}
+
+    = render :partial => "layouts/kissmetrics"
+    :css
+      @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700);
+    %meta{content: "width=device-width, initial-scale=1.0, user-scalable=no", name: "viewport"}
+    %meta{ :property => "og:type", :content =>"website"}
+    %meta{:"http-equiv" => "content-language", content: "#{I18n.locale}"}
+    %meta{name: "twitter:card", content: "summary"}
+    %link{:href => "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", :rel => "stylesheet"}/
+    / Additional meta tags for SEO, etc.
+    = content_for :head
+    = render :partial => "layouts/marketplace_head"
+
+    -# A tag for google webmaster site verification
+    %meta{ name: "google-site-verification", content: "JUqB3tYmezYEJNAkw8MUdmIocAGztY85eaoNKBD5j0Q"}

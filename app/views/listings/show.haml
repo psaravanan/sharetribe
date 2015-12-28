@@ -76,7 +76,7 @@
                     -if current_person.present? 
                       %a{"data-remote" => "true",:href => "#{favorites_like_person_listing_path(current_person.id,@listing.id, :data => 'show')}", :target => ""} 
                         -if Favorite.find_by_person_id_and_listing_image_id(current_person.id,@listing.id).present?
-                          %span.fa.fa-heart.fa-3x{:class=>"listing_#{listing.id}"}
+                          %span.fa.fa-heart.fa-3x{:class=>"listing_#{@listing.id}"}
                         -else
                           %span.icon-heart-empty.fa-3x{:class=>"listing_#{@listing.id}"}
                     - else

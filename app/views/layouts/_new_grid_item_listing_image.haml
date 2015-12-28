@@ -16,15 +16,15 @@
       .flag
         %a{"data-placement" => "left", "data-toggle" => "tooltip","data-remote" => "true",:href => "#{wish_list_person_listing_path(current_person.id,listing.id)}",:target => ""} 
           -if Wishlist.find_by_person_id_and_listing_id(current_person.id,listing.id).present?
-            %i.fa.fa-thumbs-up
+            %i.fa.fa-thumbs-up{:class=>"wish_#{listing.id}"}
           -else
-            %i.fa.fa-thumbs-o-up
+            %i.fa.fa-thumbs-o-up{:class=>"wish_#{listing.id}"}
       .heart
         %a{"data-placement" => "left", "data-toggle" => "tooltip","data-remote" => "true",:href => "#{favorites_like_person_listing_path(current_person.id,listing.id,:format=>"xhr")}", :target => ""}
           -if Favorite.find_by_person_id_and_listing_image_id(current_person.id,listing.id).present?
-            %i.fa.fa-heart
+            %i.fa.fa-heart{:class=>"listing_#{listing.id}"}
           -else
-            %i.fa.fa-heart-o
+            %i.fa.fa-heart-o{:class=>"listing_#{listing.id}"}
     -else
       .flag
         %a{"data-placement" => "left", "data-toggle" => "tooltip", :href => "#{login_path}", :title => "Like or Unlike"}
