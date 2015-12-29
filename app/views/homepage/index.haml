@@ -92,8 +92,8 @@
               %option{:value => "1"} Option2
               %option{:value => "1"} Option3
         .form-group.row
-          .col-sm-2.gap-10
-            %label{:for => "amount"} Price range:
+          .col-sm-4.gap-10
+            %label{:for => "amount"} Price Range:
           .col-md-10.gap-10
             %input#amount.gap-10{:readonly => "", :style => "border:0; color:#FF6666;", :type => "text"}
               #slider-range
@@ -107,7 +107,7 @@
               %span#slide-submenu.pull-right
                 %i.fa.fa-times
             .form-group
-              #close.col-sm-12.gap-10{:style => "text-align:right;", :type => "button"} X         
+              #close.col-sm-12.gap-10{:style => "text-align:right;", :type => "button"}        
               - @current_community.custom_fields.sort.each do |field|                
                 - field.with_type do |type|
                   .col-sm-6.gap-10
