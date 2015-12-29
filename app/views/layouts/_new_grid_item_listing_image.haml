@@ -9,8 +9,11 @@
 
 
 = link_to(listing_path(listing.url)) do
-  - with_first_listing_image(listing) do |first_image_url|
-    = image_tag first_image_url, {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image", :width=>"400px", :height=>"250px"}
+  - if listing.listing_images.blank?
+    = image_tag "no_image.png", {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image", :width=>"400px", :height=>"250px"}
+  -else
+    - with_first_listing_image(listing) do |first_image_url|
+      = image_tag first_image_url, {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image", :width=>"400px", :height=>"250px"}
   .wid-100
     -if current_person.present? 
       .flag

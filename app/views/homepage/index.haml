@@ -96,106 +96,70 @@
             %label{:for => "amount"} Price range:
           .col-md-10.gap-10
             %input#amount.gap-10{:readonly => "", :style => "border:0; color:#FF6666;", :type => "text"}
-              #slider-range.ui-slider.ui-slider-horizontal.ui-widget.ui-widget-content.ui-corner-all
-              .ui-slider-range.ui-widget-header.ui-corner-all{:style => "left: 0.7%; width: 99.3%;"}
-              %span.ui-slider-handle.ui-state-default.ui-corner-all{:style => "left: 0.7%;", :tabindex => "0"}
-              %span.ui-slider-handle.ui-state-default.ui-corner-all{:style => "left: 100%;", :tabindex => "0"}
+              #slider-range
+                
       .row.pad-top-20
         .col-sm-12.sidebar
           %button.btn.btn-danger.mini-submenu{:role => "button", :style => "display: block;"} More
-          .list-group{:style => "display: none;"}
-            %span.list-group-item.active{:href => "#"}
+          .list-group{:style=>"display:none;"}
+            %span.list-group-item.active
               Submenu
               %span#slide-submenu.pull-right
                 %i.fa.fa-times
-            .form-group.row
-              .col-sm-6.gap-10.pad-top-10
-                %h4 Spacessy Type
-                %hr
-                  .checkbox
-                    %label
-                      %input{:type => "checkbox", :value => ""} Shared Office
-                  .checkbox
-                    %label
-                      %input{:type => "checkbox", :value => ""} Home Office (Living/Study Room)
-                  .checkbox.disabled
-                    %label
-                      %input{:type => "checkbox", :value => ""} Cafes Space
-                  .checkbox.disabled
-                    %label
-                      %input{:type => "checkbox", :value => ""} Class
-                  .checkbox.disabled
-                    %label
-                      %input{:type => "checkbox", :value => ""} Music/Jamming Studio
-                  .checkbox.disabled
-                    %label
-                      %input{:type => "checkbox", :value => ""} Photostudios
-              .col-sm-6.gap-10.pad-top-10.pad-lft
-                %h4 Duration Availability
-                %hr
-                  .checkbox
-                    %label
-                      %input{:type => "checkbox", :value => ""} Hourly
-                  .checkbox
-                    %label
-                      %input{:type => "checkbox", :value => ""} Full Day
-                  .checkbox.disabled
-                    %label
-                      %input{:type => "checkbox", :value => ""} Weekly
-                  .checkbox.disabled
-                    %label
-                      %input{:type => "checkbox", :value => ""} Monthly
-            .form-group.row
-              .col-sm-6.gap-10
-                %h4 Spacessy Purpose
-                %hr
-                  .checkbox
-                    %label
-                      %input{:type => "checkbox", :value => ""} Business
-                  .checkbox
-                    %label
-                      %input{:type => "checkbox", :value => ""} Social
-              .col-sm-6.gap-10
-                %h4 Amenities
-                %hr
-                  .scroll
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Wifi
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Air-Condition
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Dedicated power points
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Readily available tables and chairs
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Pantry
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Projector
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Toilet
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Good View
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Free Parking
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Metered Parking
-                    .checkbox
-                      %label
-                        %input{:type => "checkbox", :value => ""} Coffee/ Tea/ Water (Complimentary)
-              .col-sm-12.gap-10
-                %button.btn.btn-danger{:role => "button"} Update view
+            .form-group
+              #close.col-sm-12.gap-10{:style => "text-align:right;", :type => "button"} X         
+              - @current_community.custom_fields.sort.each do |field|                
+                - field.with_type do |type|
+                  .col-sm-6.gap-10
+                    - if [:dropdown, :checkbox].include?(type)
+                      %h4  
+                        = field.name(I18n.locale)
+                      %hr
+                      - make_scrollable = field.options.size > 10
+                      - field.options.sort.each do |option|
+                    
+                        %label{:style=>"font-weight: 200 !important;"}
+                          - param_name = type == :dropdown ? "filter_option_#{option.id}" : "checkbox_filter_option_#{option.id}"
+                          = check_box_tag param_name, "#{option.id}", params[param_name]
+                          %span 
+                            = option.title(I18n.locale)
+
+
+
+                - field.with(:numeric) do
+                  .row
+                    .col-12
+                      .custom-filter-title
+                        = field.name(I18n.locale)
+                  .row
+                    .col-12
+                      .custom-filter-options
+                        - id = ["range-slider", field.id].join("-")
+                        .range-slider{id: id}
+                          - range = [field.min, field.max]
+                          - start = [params["nf_min_" + field.id.to_s] || field.min, params["nf_max_" + field.id.to_s] || field.max]
+                          - labels = ["#custom-filter-min-value-#{id}", "#custom-filter-max-value-#{id}"]
+                          - fields = ["#nf_min_#{id}", "#nf_max_#{id}"]
+
+                          - content_for :extra_javascript do
+                            :javascript
+                              window.ST.rangeFilter("##{id}", #{range}, #{start}, #{labels}, #{fields}, #{field.allow_decimals})
+
+                  .row
+                    .col-12
+                      .left
+                        %span.custom-filter-min-max-title= t(".min")
+                        %span{id: "custom-filter-min-value-#{id}"}
+                        %input{type: "hidden", id: "nf_min_#{id}", name: "nf_min_#{field.id}", value: params["nf_min_#{field.id}"]}
+                      .right
+                        %span.custom-filter-min-max-title= t(".max")
+                        %span{id: "custom-filter-max-value-#{id}"}
+                        %input{type: "hidden", id: "nf_max_#{id}", name: "nf_max_#{field.id}", value: params["nf_max_#{field.id}"]}
+
+            %br
+              .col-sm-8.gap-10
+                %button{type: 'submit'}
+                  = t("homepage.custom_filters.update_view")
       = render :partial => "new_grid_item", :collection => @listings, :as => :listing
 
-
-  
 
