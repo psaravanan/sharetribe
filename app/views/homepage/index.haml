@@ -21,11 +21,16 @@
                       %br/
                     today?
                   %h3 Your Office Anywhere, Anytime
-                %form.navbar-form{:role => "search"}
-                  .input-group.wid-100
-                    %input.form-control{:name => "q", :placeholder => "Search", :type => "text"}
-                      .input-group-btn
-                        %button.btn.btn-danger.wid-100{:type => "submit",:style=>"margin-top: 0px;"} search
+                .search-form
+                  - if @current_community.private?
+                    %a.inline-big-button{href: sign_up_path}
+                      .content
+                        = t("layouts.application.connect")
+                  - else
+                    - if(feature_enabled?(:location_search))
+                      = render :partial => "location_bar"
+                    - else
+                      = render :partial => "search_bar"
           - else
             .item.slides
               .slide
@@ -38,11 +43,11 @@
                       %br/
                     today?
                   %h3 Your Office Anywhere, Anytime
-                %form.navbar-form{:role => "search"}
-                  .input-group.wid-100
-                    %input.form-control{:name => "q", :placeholder => "Search", :type => "text"}
-                      .input-group-btn
-                        %button.btn.btn-danger.wid-100{:type => "submit",:style=>"margin-top: 0px;"} search
+                .browse-view-search-form
+                  - if(feature_enabled?(:location_search))
+                    = render :partial => "location_bar"
+                  - else
+                    = render :partial => "search_bar"
            
       / carousel-inner close
     / carousel close
@@ -51,7 +56,11 @@
 .container-fluid
   .row
     .col-md-12.pad-top-10.scroll2
-      %form#commentForm.form-horizontal{:action => "#", :method => "post", :role => "form"}
+      %form{method: "get", id: "homepage-filters", :class=> "form-horizontal"}
+        - params.except("action", "controller", "q", "view", "utf8").each do |param, value|
+          - unless param.match(/^filter_option/) || param.match(/^checkbox_filter_option/) || param.match(/^nf_/) || param.match(/^price_/)
+            = hidden_field_tag param, value
+        = hidden_field_tag "view", @view_type
         .form-group.row
           .col-sm-2.gap-10
             %label City
@@ -97,8 +106,9 @@
           .col-md-10.gap-10
             %input#amount.gap-10{:readonly => "", :style => "border:0; color:#FF6666;", :type => "text"}
               #slider-range
-                
-      .row.pad-top-20
+          %input{type: "hidden", id: "price_min", name: "price_min", value: params["price_min"]}
+          %input{type: "hidden", id: "price_max", name: "price_max", value: params["price_max"]}
+        .row.pad-top-20
         .col-sm-12.sidebar
           %button.btn.btn-danger.mini-submenu{:role => "button", :style => "display: block;"} More
           .list-group{:style=>"display:none;"}
@@ -160,6 +170,15 @@
               .col-sm-8.gap-10
                 %button{type: 'submit'}
                   = t("homepage.custom_filters.update_view")
-      = render :partial => "new_grid_item", :collection => @listings, :as => :listing
-
-
+      .row.pad-top-20
+        .col-sm-12.gap-10
+          .pull-right
+            %a#list{:href => "#"}
+              %span.glyphicon.glyphicon-list
+            %a#grid{:href => "#"}
+              %span.glyphicon.glyphicon-th
+            %a#grid{:href => "#"}
+              %span.glyphicon.glyphicon-map-marker
+        .col-sm-12.gap-10
+          #products.row.list-group    
+            = render :partial => "new_grid_item", :collection => @listings, :as => :listing
