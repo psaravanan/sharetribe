@@ -1,5 +1,5 @@
 = render :partial => 'layouts/new_head'
-  
+%link{:href => "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css", :rel => "stylesheet"}
 %body
   = render :partial => 'layouts/new_global_header'
   = stylesheet_link_tag  "newcss/bootstrap.min"
@@ -55,7 +55,7 @@
   = render :partial => "layouts/facebook_sdk"
 
   = javascript_include_tag 'newjs/application'
-
+  = javascript_include_tag 'jquery_ujs'
   - if @analytics_event
     :javascript
       report_analytics_event(#{@analytics_event});
@@ -69,6 +69,14 @@
 
   = content_for :extra_javascript
 
+
+/ :javascript
+/   $(window).load(function() {
+/   $('.fill').find('img').each(function() {
+/       var imgClass = (this.width / this.height > 1) ? 'wide' : 'tall';
+/       $(this).addClass(imgClass);
+/   })
+/ })
 
 :javascript
   $(document).ready(

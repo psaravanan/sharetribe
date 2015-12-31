@@ -10,10 +10,10 @@
 
 = link_to(listing_path(listing.url)) do
   - if listing.listing_images.blank?
-    = image_tag "no_image.png", {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image", :width=>"400px", :height=>"250px"}
+    = image_tag "no_image.jpg", {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 280px ;height: 190px;"}
   -else
     - with_first_listing_image(listing) do |first_image_url|
-      = image_tag first_image_url, {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image", :width=>"400px", :height=>"250px"}
+      = image_tag first_image_url, {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 280px ;height: 190px;"}
   .wid-100
     -if current_person.present? 
       .flag
@@ -54,7 +54,7 @@
     %h4.group.inner.list-group-item-heading.gap-20{:style=>"color:#405C6F !important;"}
       =listing.title
     %p.group.inner.list-group-item-text 
-      =listing.description
+      =#listing.description
 
 
 / :javascript
