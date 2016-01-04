@@ -100,7 +100,6 @@
 - content_for :javascript do
   initialize_homepage();
 
-
 .container-fluid
   .row.top
     -unless params[:value].present?
@@ -158,6 +157,10 @@
     / carousel close
   / row close
 / container-fluid close
+- if @listings.blank?
+  %h1#message.gap-10
+    %font{:size => "5", :color => "red"}
+      No results found, Try again 
 .container-fluid
   .row
     .col-md-12.pad-top-10
@@ -217,11 +220,12 @@
           /     %option{:value => "1"} Option1
           /     %option{:value => "1"} Option2
           /     %option{:value => "1"} Option3
+
         .form-group.row
           .col-sm-4.gap-10
             %label{:for => "amount"} Price Range:
           .col-md-10.gap-10
-            %input#amount.gap-10{:readonly => "", :style => "border:0; color:#FF6666;", :type => "text"}
+            %input#amount.gap-10{:readonly => "", :style => "border:0; color:#FF6666;margin-left: -154px; width: 10%;", :type => "text"}
               #slider-range
           %input{type: "hidden", id: "price_min", name: "price_min", value: params["price_min"]}
           %input{type: "hidden", id: "price_max", name: "price_max", value: params["price_max"]}

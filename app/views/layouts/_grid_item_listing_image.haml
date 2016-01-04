@@ -7,7 +7,6 @@
   - Listing price
   - Adds `modifier_class` which can be used for view specific fine tunings
 
-
 = link_to(listing_path(listing.url)) do
   - with_first_listing_image(listing) do |first_image_url|
     = image_tag first_image_url, {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image", :width=>"400px", :height=>"250px"}

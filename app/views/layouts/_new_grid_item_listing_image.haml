@@ -7,7 +7,6 @@
   - Listing price
   - Adds `modifier_class` which can be used for view specific fine tunings
 
-
 = link_to(listing_path(listing.url)) do
   - if listing.listing_images.blank?
     = image_tag "no_image.jpg", {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 280px ;height: 250px;"}
