@@ -100,6 +100,7 @@
 - content_for :javascript do
   initialize_homepage();
 
+
 .container-fluid
   .row.top
     -unless params[:value].present?
@@ -124,15 +125,16 @@
                       today?
                     %h3 Your Office Anywhere, Anytime
                   .search-form
-                    - if @current_community.private?
-                      %a.inline-big-button{href: sign_up_path}
-                        .content
-                          = t("layouts.application.connect")
-                    - else
-                      - if(feature_enabled?(:location_search))
-                        = render :partial => "location_bar"
+                    %form#homepage-filters{:method => "get"}
+                      - if @current_community.private?
+                        %a.inline-big-button{href: sign_up_path}
+                          .content
+                            = t("layouts.application.connect")
                       - else
-                        = render :partial => "search_bar"
+                        - if(feature_enabled?(:location_search))
+                          = render :partial => "location_bar"
+                        - else
+                          = render :partial => "search_bar"
             - else
               .item.slides
                 .slide
@@ -146,10 +148,11 @@
                       today?
                     %h3 Your Office Anywhere, Anytime
                   .browse-view-search-form
-                    - if(feature_enabled?(:location_search))
-                      = render :partial => "location_bar"
-                    - else
-                      = render :partial => "search_bar"
+                    %form#homepage-filters{:method => "get"}
+                      - if(feature_enabled?(:location_search))
+                        = render :partial => "location_bar"
+                      - else
+                        = render :partial => "search_bar"
              
       / carousel-inner close
     / carousel close
@@ -164,18 +167,18 @@
             = hidden_field_tag param, value
         = hidden_field_tag "view", @view_type
         .form-group.row
-          .col-sm-3.gap-10
-            %label Dates
-          .col-sm-3.gap-10
-            %input#adaad.wid-100.form-control{"data-format" => "YYYY-MM-DD", "data-lang" => "en", "data-years" => "2015-2035", :type => "text"}
-          .col-sm-3.gap-10
-            %input#adaadd.wid-100.form-control{"data-format" => "YYYY-MM-DD", "data-lang" => "en", "data-years" => "2015-2035", :type => "text"}
-          .col-sm-3.gap-10
-            %select#sel1.form-control
-              %option{:value => "1"} 1 Guest
-              %option{:value => "1"} 2 Guest
-              %option{:value => "1"} 3 Guest
-              %option{:value => "1"} 4 Guest
+          / .col-sm-3.gap-10
+          /   %label Dates
+          / .col-sm-3.gap-10
+          /   %input#adaad.wid-100.form-control{"data-format" => "YYYY-MM-DD", "data-lang" => "en", "data-years" => "2015-2035", :type => "text"}
+          / .col-sm-3.gap-10
+          /   %input#adaadd.wid-100.form-control{"data-format" => "YYYY-MM-DD", "data-lang" => "en", "data-years" => "2015-2035", :type => "text"}
+          / .col-sm-3.gap-10
+          /   %select#sel1.form-control
+          /     %option{:value => "1"} 1 Guest
+          /     %option{:value => "1"} 2 Guest
+          /     %option{:value => "1"} 3 Guest
+          /     %option{:value => "1"} 4 Guest
           .col-sm-2.gap-10
             %label City
           .col-sm-4.gap-10
@@ -206,14 +209,14 @@
                       -else 
                         %option{:value=> child.display_name(I18n.locale) }
                           = link_to child.display_name(I18n.locale), params.merge({category: child}), :class => "home-categories-sub #{if is_selected then 'selected' end}", :data => {:"sub-category" =>child.id}
-          .col-sm-2.gap-10
-            %label Spacessy Type
-          .col-sm-4.gap-10
-            %select#sel1.form-control
-              %option{:value => "1"} Option
-              %option{:value => "1"} Option1
-              %option{:value => "1"} Option2
-              %option{:value => "1"} Option3
+          / .col-sm-2.gap-10
+          /   %label Spacessy Type
+          / .col-sm-4.gap-10
+          /   %select#sel1.form-control
+          /     %option{:value => "1"} Option
+          /     %option{:value => "1"} Option1
+          /     %option{:value => "1"} Option2
+          /     %option{:value => "1"} Option3
         .form-group.row
           .col-sm-4.gap-10
             %label{:for => "amount"} Price Range:

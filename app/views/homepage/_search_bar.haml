@@ -1,5 +1,5 @@
 .navbar-form{:role => "search"}
   .input-group.wid-100
-    = text_field_tag "q", params[:q], :placeholder => (@community_customization && @community_customization.search_placeholder) || t("homepage.index.what_do_you_need")
+    = text_field_tag "q", params[:q], :placeholder => (@community_customization && @community_customization.search_placeholder) || t("homepage.index.what_do_you_need"), :style => "color:black;"
     .input-group-btn
       %button.btn.btn-danger.wid-100{:type => "submit"} search
