@@ -12,9 +12,15 @@
 }
 
 .wrapper {
-  @include wrapper;
+  width:100%;
+  overflow:hidden;
 }
 
 .undo-mobile-wrapper-margin {
   @include undo-mobile-wrapper-margin;
+}
+.scroll2 {
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }

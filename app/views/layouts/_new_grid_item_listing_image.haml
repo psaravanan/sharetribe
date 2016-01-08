@@ -6,13 +6,13 @@
   - Overlay (transparent gradient black)
   - Listing price
   - Adds `modifier_class` which can be used for view specific fine tunings
-
 = link_to(listing_path(listing.url)) do
   - if listing.listing_images.blank?
-    = image_tag "no_image.jpg", {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 280px ;height: 250px;"}
+    = image_tag "no_image.jpg", {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 396px;"}
   -else
-    - with_first_listing_image(listing) do |first_image_url|
-      = image_tag first_image_url, {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 280px ;height: 250px;"}
+    .wrapper
+      - with_first_listing_image(listing) do |first_image_url|
+        = image_tag first_image_url, {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 300px;"}
   .wid-100
     -if current_person.present? 
       .flag
