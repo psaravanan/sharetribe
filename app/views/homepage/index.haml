@@ -36,33 +36,31 @@
     //add new points to array for later manipulation
     //console.log(places[i].lat);
      pointsOnMap[places[i].id] = new mm.Follower(map, new mm.Location(places[i].lat, places[i].long), "$"+ places[i].price+" Rs");
-     
-     if(i==0) {
-        centerLat = places[i].lat;
-        centerLong = places[i].long;
-     }
+     centerLat = places[i].lat;
+     centerLong = places[i].long;
      
     }
     
     //center it at first point
-    map.setCenterZoom(new mm.Location(centerLat, centerLong), 12);
+    map.setCenterZoom(new mm.Location(centerLat, centerLong), 6);
   }
   
   //function for mouseover change.
-  function changeFill(el){
-    var bubble = el.querySelector("#bubble");
-    var bubCtx = bubble.getContext('2d');
-    bubCtx.fillStyle = "#006666";
-    bubCtx.fill();
-  }
+  // function changeFill(el){
+  //   var bubble = el.querySelector("#bubble");
+  //   var bubCtx = bubble.getContext('2d');
+  //   bubCtx.fillStyle = "#006666";
+  //   bubCtx.fill();
+  // }
+
   
   //function to change back on mouseout.
-  function changeBack(el){
-    var bubble = el.querySelector("#bubble");
-    var bubCtx = bubble.getContext('2d');
-    bubCtx.fillStyle = "rgb(247, 68, 68)";
-    bubCtx.fill();
-  }
+  // function changeBack(el){
+  //   var bubble = el.querySelector("#bubble");
+  //   var bubCtx = bubble.getContext('2d');
+  //   bubCtx.fillStyle = "rgb(247, 68, 68)";
+  //   bubCtx.fill();
+  // }
 
 
 -@listings.each do |listing|
@@ -96,13 +94,23 @@
           xmlHttp.send( null );
           return xmlHttp.responseText;
       }
-
+      function changeFill(el){
+        var mm = com.modestmaps;
+        pointsOnMap[#{listing.id}] = new mm.Follower(map, new mm.Location(places[el-1].lat, places[el-1].long),"$ 1000 Rs");
+      }
+      function changeBack(el){
+        var mm = com.modestmaps;
+        pointsOnMap[#{listing.id}] = new mm.Follower(map, new mm.Location(places[el-1].lat, places[el-1].long),"$"+ places[el-1].price+" Rs");        
+      }
+%link{:href => "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", :rel => "stylesheet"}
+  %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"}
+  %script{:src => "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"}
 - content_for :javascript do
   initialize_homepage();
 -unless params[:value].present?
   .container-fluid
     .row.top
-      #bs-carousel.carousel.fade-carousel.slide{"data-interval" => "12000", "data-ride" => "carousel"}
+      #bs-carousel.carousel.fade-carousel.slide{"data-ride" => "carousel"}
         / Indicators
         %ol.carousel-indicators
           -(0...slider_images.count).each do |val|
@@ -133,6 +141,7 @@
                           = render :partial => "location_bar"
                         - else
                           = render :partial => "search_bar"
+
             - else
               .item.slides
                 .slide
@@ -151,7 +160,13 @@
                         = render :partial => "location_bar"
                       - else
                         = render :partial => "search_bar"
-             
+          %a.right.carousel-control{ "data-slide"=>"next", "href" => "#bs-carousel"}
+            %span.sr-only Next
+            %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true"}
+          %a.left.carousel-control{"data-slide"=>"prev", "href" => "#bs-carousel"}
+            %span.sr-only previous
+            %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true"}
+       
       / carousel-inner close
     / carousel close
   / row close
@@ -175,7 +190,7 @@
               #products.list-group
                 = render :partial => "new_grid_item", :collection => @listings, :as => :listing
             .col-md-5.pad-top-10
-              %iframe{:allowfullscreen => "", :frameborder => "0", :height => "600", :src => "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5938.979980771974!2d12.44768382450996!3d41.90382425201743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1325890a57d42d3d%3A0x94f9ab23a7eb0!2sVatican+City!5e0!3m2!1sen!2sin!4v1449305682968", :style => "border:0", :width => "100%"}
+              #map
         - else
           .col-sm-12.gap-10.row
             #products.list-group   

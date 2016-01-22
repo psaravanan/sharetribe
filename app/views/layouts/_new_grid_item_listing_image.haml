@@ -8,10 +8,10 @@
   - Adds `modifier_class` which can be used for view specific fine tunings
 = link_to(listing_path(listing.url)) do
   - if listing.listing_images.blank?
-    = image_tag "no_image.jpg", {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 396px;"}
+    = image_tag "no_image.jpg", {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 396px;",:onmouseover =>"changeFill(#{listing.id})", :onmouseout=>"changeBack(#{listing.id})"}
   -else
     - with_first_listing_image(listing) do |first_image_url|
-      = image_tag first_image_url, {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 396px;"}
+      = image_tag first_image_url, {:alt => listed_listing_title(listing), :class => "#{modifier_class} group list-group-image",:style=>"width: 396px;", :onmouseover =>"changeFill(#{listing.id})", :onmouseout=>"changeBack(#{listing.id})"}
   .wid-100
     -if current_person.present? 
       .flag
@@ -47,12 +47,12 @@
             = shape_name(listing)
     .user
       = link_to(person_path(id: listing.author.username)) do
-        = image_tag(listing.author.avatar.thumb, :class => "user-border",:style=>"width: 78px ;height: 78px;")
+        = image_tag(listing.author.avatar.thumb, :class => "user-border",:style=>"width: 75px ;height: 75px;")
   .caption
     %h4.group.inner.list-group-item-heading.gap-20{:style=>"color:#405C6F !important;"}
       =listing.title
     %p.group.inner.list-group-item-text 
-      =#listing.description
+      =listing.description = listing.description.size < 10 ? listing.description : listing.description[0,157] + "..."
 
 
 / :javascript

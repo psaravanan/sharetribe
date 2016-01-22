@@ -83,6 +83,20 @@
     
     /* This is the function that will get executed after the DOM is fully loaded */
     function () {
+      $('#amount').bind("change", function () {
+        price= {
+          price_min: $("#price_min").val(),
+          price_max: $("#price_max").val()
+        }
+        $.ajax({
+          type: 'GET',
+          url: "/wishlist",
+          data: {price: price},
+          success: function(response){
+            console.log(response);
+          }
+        });
+      });
       $( "#adaad" ).datepicker({
         changeMonth: true,//this option for allowing user to select month
         changeYear: true //this option for allowing user to select from year range
@@ -104,7 +118,7 @@
       max: 5000,
       values: [ 0, 5000 ],
       slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] ).trigger('change');
         $("#price_min").val(""+ui.values[ 0 ]);
         $("#price_max").val(""+ui.values[ 1 ]);
       }

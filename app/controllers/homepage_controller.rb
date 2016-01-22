@@ -75,8 +75,12 @@ class HomepageController < ApplicationController
         render nothing: true, status: 500
       }
     else
+      p '-------------------request.xhr else part----------------------------'
+      p search_result
       search_result.on_success { |listings|
       @listings = listings
+      p '@listing'
+      p @listings
         render locals: {
                  shapes: all_shapes,
                  show_price_filter: show_price_filter,
