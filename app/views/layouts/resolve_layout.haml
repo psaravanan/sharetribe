@@ -162,11 +162,12 @@
       });
 
       $("#sel1").bind('change', function () {
-         var url = "/?category=" + $(this).val().toLowerCase();
-          if (url) {
-              window.location.replace(url);
-          }
-          return false;
+         var sel_loc = $(this).val().toLowerCase();
+         initMap(sel_loc);
+         //  if (url) {
+         //      window.location.replace(url);
+         //  }
+         //  return false;
       });
   });
 

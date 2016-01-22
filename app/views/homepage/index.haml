@@ -2,6 +2,7 @@
 - content_for :extra_javascript do
   = javascript_include_tag 'modestmaps.min.js'
   = javascript_include_tag 'follow2.js'
+  = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'
 
 :css
   #map {
@@ -18,19 +19,20 @@
   var count = 0;
   var places = [];
   window.onload = function(){
-        initMap();
-    };
+    initMap();
+  };
+
   var map;
   var pointsOnMap = [];
-  var initMap = function() {
+  var initMap = function(sel_loc) {
+    var location_lat;
+    var location_lng;
     var mm = com.modestmaps;
     var template = 'http://otile2.mqcdn.com/tiles/1.0.0/osm/{Z}/{X}/{Y}.jpg';
     var subdomains = ['', 'a.', 'b.', 'c.'];
     var provider = new mm.TemplatedLayer(template, subdomains);
-    var centerLat = 37.811530;
-    var centerLong = -122.2666097;
 
-    map = new MM.Map('map', provider, null, []);
+    map = new MM.Map('map', provider, null, [new MM.MouseWheelHandler(null, true)]);
     
     for(var i =0; i < places.length; i++){
     //add new points to array for later manipulation
@@ -38,11 +40,27 @@
      pointsOnMap[places[i].id] = new mm.Follower(map, new mm.Location(places[i].lat, places[i].long), "$"+ places[i].price);
      centerLat = places[i].lat;
      centerLong = places[i].long;
-     
+    }
+    if(sel_loc == undefined || sel_loc == "all"){
+      var centerLat = places[0].lat;
+      var centerLong = places[0].long;
+      map.setCenterZoom(new mm.Location(centerLat, centerLong), 6);
+    }
+    else{
+      var geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode( { 'address': sel_loc}, function(results, status) {
+        var location = results[0].geometry.location;
+        location_lat = location.lat();
+        location_lng = location.lng();
+        var centerLat = location_lat;
+        var centerLong = location_lng;
+        map.setCenterZoom(new mm.Location(centerLat, centerLong), 6);
+      });
     }
     
     //center it at first point
-    map.setCenterZoom(new mm.Location(centerLat, centerLong), 6);
+    // map.setCenterZoom(new mm.Location(centerLat, centerLong), 6);
   }
   
   //function for mouseover change.
