@@ -35,7 +35,7 @@
     for(var i =0; i < places.length; i++){
     //add new points to array for later manipulation
     //console.log(places[i].lat);
-     pointsOnMap[places[i].id] = new mm.Follower(map, new mm.Location(places[i].lat, places[i].long), "$"+ places[i].price+" Rs");
+     pointsOnMap[places[i].id] = new mm.Follower(map, new mm.Location(places[i].lat, places[i].long), "$"+ places[i].price);
      centerLat = places[i].lat;
      centerLong = places[i].long;
      
@@ -53,7 +53,6 @@
   //   bubCtx.fill();
   // }
 
-  
   //function to change back on mouseout.
   // function changeBack(el){
   //   var bubble = el.querySelector("#bubble");
@@ -94,13 +93,17 @@
           xmlHttp.send( null );
           return xmlHttp.responseText;
       }
+
+      //function for mouseover change.
       function changeFill(el){
         var mm = com.modestmaps;
-        pointsOnMap[#{listing.id}] = new mm.Follower(map, new mm.Location(places[el-1].lat, places[el-1].long),"$ 1000 Rs");
+        pointsOnMap[#{listing.id}] = new mm.Follower(map, new mm.Location(places[el-1].lat, places[el-1].long),"$"+ places[el-1].price,"change_color");
       }
+
+      //function to change back on mouseout.
       function changeBack(el){
         var mm = com.modestmaps;
-        pointsOnMap[#{listing.id}] = new mm.Follower(map, new mm.Location(places[el-1].lat, places[el-1].long),"$"+ places[el-1].price+" Rs");        
+        pointsOnMap[#{listing.id}] = new mm.Follower(map, new mm.Location(places[el-1].lat, places[el-1].long),"$"+ places[el-1].price);        
       }
 %link{:href => "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", :rel => "stylesheet"}
   %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"}

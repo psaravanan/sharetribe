@@ -7,8 +7,7 @@ if (!com) {
 }
 
 (function(MM) {
-
-    MM.Follower = function(map, location, content) {
+    MM.Follower = function(map, location, content,change_color) {
         this.coord = map.locationCoordinate(location);
 
         this.offset = new MM.Point(0, 0);
@@ -53,7 +52,12 @@ if (!com) {
         bubble.height = this.dimensions.y;
         var bubCtx = bubble.getContext('2d');
         bubCtx.strokeStyle = '#707070';
-        bubCtx.fillStyle = "rgb(247, 68, 68)";
+        if (change_color != undefined){
+            bubCtx.fillStyle = "#5cb85c";
+        }
+        else{
+            bubCtx.fillStyle = "rgb(247, 68, 68)";
+        }
         this.drawBubblePath(bubCtx);
         bubCtx.fill();
         bubCtx.stroke();
